@@ -3,573 +3,834 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>COLOR DICE</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080a13">
+<title>COLOR DICE ULTRA V5</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-
-:root {
-  --bg:#080a12;
-  --panel:#101522;
-  --panel2:#151d2d;
-  --line:#273149;
-  --muted:#8490a8;
-  --white:#f5f7ff;
-  --purple:#8b5cf6;
-  --cyan:#38bdf8;
-  --green:#27d69b;
-  --red:#ff5574;
+:root{
+ --bg:#080a13;--panel:#111827;--panel2:#19243a;--line:#354563;
+ --muted:#91a0ba;--white:#f5f7ff;--accent:#9567ff;--accent2:#478cff;
+ --green:#29dfa3;--red:#ff5c79;
 }
 *{box-sizing:border-box}
 body{
-  margin:0;
-  min-height:100vh;
-  color:var(--white);
-  background:
-    radial-gradient(ellipse at 15% 0%,#34205c66,transparent 38%),
-    radial-gradient(ellipse at 90% 30%,#123b5b55,transparent 35%),
-    var(--bg);
-  font-family:Inter,Arial,sans-serif;
+ margin:0;min-height:100vh;color:var(--white);font-family:Inter,Arial,sans-serif;
+ background:radial-gradient(ellipse at 10% 0%,#7138ce45,transparent 38%),
+ radial-gradient(ellipse at 95% 15%,#087cb540,transparent 38%),var(--bg)
 }
-button,select{font:inherit}
+button,input,select{font:inherit}
 button{cursor:pointer}
-.app{max-width:1250px;margin:auto;padding:25px 22px 45px}
-header{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:15px;margin-bottom:25px
-}
-.logo{display:flex;align-items:center;gap:12px}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.app{max-width:1450px;margin:auto;padding:25px 23px 45px}
+header{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:25px}
+.logo{display:flex;align-items:center;gap:13px}
 .logo-icon{
-  width:48px;height:48px;border-radius:15px;
-  display:grid;place-items:center;font-size:25px;
-  background:linear-gradient(135deg,#8b5cf6,#3988ff);
-  box-shadow:0 8px 30px #7048e855
+ width:55px;height:55px;border-radius:17px;display:grid;place-items:center;
+ font-size:29px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+ border:2px solid #c1aaff;box-shadow:0 0 0 3px #9467ff30,0 8px 30px #7448e855
 }
-.logo h1{font-size:23px;letter-spacing:2px;margin:0;font-weight:900}
-.logo small{display:block;color:var(--muted);font-size:10px;letter-spacing:2px;margin-top:4px}
-.status{
-  display:flex;align-items:center;gap:8px;
-  padding:10px 14px;border:1px solid #244b42;
-  background:#10251f;border-radius:30px;
-  color:#70e9b9;font-size:11px;font-weight:800
+.logo h1{margin:0;font-size:23px;font-weight:900;letter-spacing:2px}
+.logo small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:5px}
+.header-actions{display:flex;align-items:center;gap:9px}
+.status,.fair-tag{
+ display:flex;align-items:center;gap:8px;padding:10px 13px;
+ border:2px solid #277d5b;background:#10271f;color:#75e9bb;
+ border-radius:30px;font-size:9px;font-weight:900;white-space:nowrap;
+ box-shadow:0 0 15px #29dfa322
 }
-.dot{width:7px;height:7px;border-radius:50%;background:#27d69b;box-shadow:0 0 12px #27d69b}
-.top-labels{display:flex;gap:10px;margin-bottom:18px}
-.top-label{
-  padding:9px 13px;border-radius:10px;font-size:10px;
-  font-weight:900;letter-spacing:1px;
-  background:#171e2d;border:1px solid var(--line);color:#aebbd4
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+.icon-button{
+ width:43px;height:43px;border:2px solid var(--line);
+ background:linear-gradient(145deg,#1d2940,#111827);color:white;
+ border-radius:13px;font-size:17px;transition:.2s;box-shadow:0 4px 12px #0005
 }
-.top-label:first-child{color:#c6adff;border-color:#6843a7;background:#211735}
-.layout{display:grid;grid-template-columns:330px 1fr;gap:18px;align-items:start}
+.icon-button:hover{background:var(--panel2);transform:translateY(-2px);border-color:var(--accent);box-shadow:0 0 15px #9467ff55}
+.hero{
+ display:flex;justify-content:space-between;align-items:center;gap:20px;
+ padding:28px;margin-bottom:20px;border:2px solid #57458a;border-radius:21px;
+ background:linear-gradient(115deg,#21183e,#111c30 75%);
+ box-shadow:0 0 0 4px #9467ff13,0 20px 50px #0006;overflow:hidden;position:relative
+}
+.hero:after{content:"🎲";position:absolute;right:35px;top:50%;transform:translateY(-50%) rotate(-15deg);font-size:105px;opacity:.12;pointer-events:none}
+.hero-label{font-size:9px;letter-spacing:2px;color:#b69cff;font-weight:900}
+.hero h2{font-size:28px;letter-spacing:-1px;margin:9px 0 5px}
+.hero p{font-size:11px;color:#aab5cb;line-height:1.7;margin:0}
+.hero-badge{position:relative;z-index:1;background:#211b3b;border:2px solid #8066c0;padding:13px 16px;border-radius:12px;font-size:10px;font-weight:900;color:#c9b8ff;white-space:nowrap;box-shadow:0 0 20px #9467ff33}
+.layout{display:grid;grid-template-columns:320px minmax(0,1fr);gap:19px;align-items:start}
 .panel{
-  background:linear-gradient(145deg,#141b2aee,#0e1420f5);
-  border:1px solid var(--line);border-radius:19px;
-  padding:20px;box-shadow:0 18px 55px #0003
+ background:linear-gradient(145deg,#151e30f7,#0e1422fa);
+ border:2px solid var(--line);border-radius:19px;padding:19px;
+ box-shadow:0 0 0 3px #ffffff08,0 12px 38px #0004;min-width:0
 }
-.section-title{
-  display:flex;align-items:center;justify-content:space-between;
-  font-size:12px;font-weight:900;letter-spacing:1px;margin-bottom:16px
-}
-.section-title span{color:var(--muted);font-size:10px;letter-spacing:0}
-.color-list{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.section-title{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:10px;font-weight:900;letter-spacing:1px;margin-bottom:16px}
+.section-title span{font-size:9px;color:var(--muted);letter-spacing:0}
+.color-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .color-option{
-  display:flex;align-items:center;gap:9px;
-  padding:10px 9px;border-radius:11px;
-  background:#1a2232;border:1px solid #2b354a;
-  color:#cbd4e7;font-size:11px;font-weight:700;
-  transition:.2s
+ display:flex;align-items:center;gap:8px;padding:11px 8px;
+ border-radius:11px;border:2px solid #35425c;background:#192337;
+ color:#cbd5e8;font-size:10px;font-weight:800;transition:.2s
 }
-.color-option:hover{transform:translateY(-2px);border-color:#68799a}
-.color-option.active{background:#202b3d;border-color:#8b72d6;color:white}
-.color-dot{width:14px;height:14px;border-radius:5px;flex-shrink:0}
-.check{margin-left:auto;color:#80e9bd;font-size:13px}
-.counter{color:var(--muted);font-size:10px}
-.hint{font-size:10px;line-height:1.6;color:var(--muted);margin:13px 0 0}
-.divider{height:1px;background:var(--line);margin:20px 0}
-.field-label{font-size:10px;color:#9ca9c0;font-weight:800;letter-spacing:1px;margin-bottom:9px}
-select{
-  width:100%;padding:13px 12px;border-radius:11px;
-  border:1px solid #34415b;background:#1a2232;color:white;
-  outline:none;font-weight:700;font-size:12px
+.color-option:hover{transform:translateY(-2px);border-color:#a28aff;box-shadow:0 0 12px #9467ff33}
+.color-option.active{background:#252b43;border-color:var(--accent);color:white;box-shadow:0 0 0 2px #9467ff25,0 0 15px #9467ff22}
+.color-dot{width:14px;height:14px;border-radius:5px;flex-shrink:0;border:1px solid #ffffff66}
+.check{margin-left:auto;color:var(--green)}
+.hint{font-size:10px;line-height:1.8;color:var(--muted);margin:12px 0 0}
+.divider{height:2px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:19px 0}
+.field-label{font-size:9px;font-weight:900;color:#aab8d0;letter-spacing:1px;margin-bottom:9px}
+select,.star-input{
+ width:100%;padding:13px;border:2px solid #3c4b69;border-radius:11px;
+ background:#192337;color:white;font-size:12px;font-weight:700;transition:.2s
 }
-.amounts{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
-.amount{
-  border:1px solid #303b52;background:#1a2232;color:#aebbd1;
-  padding:11px 0;border-radius:9px;font-weight:900;font-size:13px;
-  transition:.2s
+select:focus,.star-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px #9467ff25;outline:none}
+.amounts{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.amount{padding:11px 0;border:2px solid #35435d;border-radius:9px;background:#192337;color:#b9c5d9;font-size:12px;font-weight:900;transition:.2s}
+.amount:hover{border-color:var(--accent);box-shadow:0 0 10px #9467ff44}
+.amount.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;border-color:#c4aaff;box-shadow:0 0 0 2px #9467ff33,0 0 15px #9467ff55}
+.quick-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}
+.secondary-button{
+ border:2px solid #3b4a67;background:linear-gradient(145deg,#202d45,#172236);
+ color:#d1daeb;border-radius:10px;padding:11px 7px;font-size:9px;font-weight:900;transition:.2s
 }
-.amount.active{background:linear-gradient(135deg,#7448d8,#436de8);border-color:#a78bfa;color:white;box-shadow:0 5px 16px #7048d855}
-.main-panel{padding:23px}
-.game-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.game-head h2{font-size:17px;margin:0;font-weight:900}
+.secondary-button:hover{border-color:var(--accent);background:#252e45;transform:translateY(-1px);box-shadow:0 0 12px #9467ff33}
+.star-box{padding:15px;border:2px solid #66518e;background:linear-gradient(145deg,#211b3b,#151d30);border-radius:15px;box-shadow:0 0 0 3px #9467ff12}
+.star-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}
+.star-heading strong{font-size:11px;letter-spacing:.8px}
+.star-heading span{font-size:20px}
+.star-fields{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.star-field label{display:block;font-size:8px;color:#c0adf2;font-weight:900;letter-spacing:.8px;margin-bottom:7px}
+.star-input{padding:12px 9px;background:#11182a;border-color:#574575;font-size:12px}
+.star-input::placeholder{color:#78849d}
+.star-info{font-size:9px;line-height:1.7;color:#a9b2c7;margin-top:10px}
+.star-validation{font-size:9px;font-weight:800;margin-top:8px;min-height:14px}
+.star-validation.good{color:var(--green)}
+.star-validation.bad{color:var(--red)}
+.main-panel{padding:21px}
+.game-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.game-head h2{font-size:15px;font-weight:900;margin:0}
 .game-head p{font-size:10px;color:var(--muted);margin:6px 0 0}
-.fair-tag{font-size:9px;color:#7de5bb;background:#123127;border:1px solid #235a48;padding:8px 10px;border-radius:20px;font-weight:900;white-space:nowrap}
 .dice-stage{
-  margin-top:22px;min-height:230px;border-radius:17px;
-  border:1px solid #28364e;
-  background:
-    radial-gradient(ellipse at center,#28345b66,transparent 70%),
-    linear-gradient(135deg,#111a2b,#0c1220);
-  display:flex;align-items:center;justify-content:center;
-  flex-wrap:wrap;gap:13px;padding:25px 15px;overflow:hidden;
-  position:relative
+ margin-top:20px;min-height:250px;padding:25px 13px;display:flex;
+ align-items:center;justify-content:center;flex-wrap:wrap;gap:13px;
+ border:2px solid #3b4b6b;border-radius:17px;overflow:hidden;position:relative;
+ background:radial-gradient(ellipse at center,#6849a43b,transparent 70%),linear-gradient(135deg,#141d30,#0c1220);
+ box-shadow:inset 0 0 30px #0005,0 0 0 3px #ffffff08
 }
-.dice{
-  width:76px;height:76px;border-radius:17px;
-  display:grid;place-items:center;
-  background:linear-gradient(145deg,#303b54,#151d2e);
-  border:1px solid #52617d;
-  box-shadow:0 9px 20px #0006,inset 0 2px 5px #ffffff18;
-  font-size:37px;font-weight:900;color:#dce6ff;
-  transform:translateY(0) rotate(0);
-  position:relative
-}
-.dice.unknown{color:#b5a1ff;background:linear-gradient(145deg,#33295b,#191c35);border-color:#8d6ee9}
+.dice-stage:before{content:"";position:absolute;width:280px;height:280px;border:2px solid #ffffff0c;border-radius:50%;pointer-events:none}
+.dice{width:78px;height:78px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(145deg,#35415d,#161e30);border:2px solid #71809e;box-shadow:0 10px 25px #0007,inset 0 2px 6px #ffffff1a,0 0 0 3px #ffffff0b;position:relative;z-index:1}
+.dice-face{font-size:36px;color:white;text-shadow:0 2px 8px #0008}
+.dice.unknown{background:linear-gradient(145deg,#3a2b68,#191d36);border-color:#a88aff;box-shadow:0 0 0 3px #9467ff22,0 0 20px #9467ff33}
+.dice.unknown .dice-face{color:#c5aaff}
 .dice.flicker{animation:flicker .12s infinite alternate}
-.dice.drop{animation:drop .75s cubic-bezier(.15,.8,.2,1) both}
+.dice.drop{animation:drop .7s cubic-bezier(.15,.8,.2,1) both}
 .dice.impact{animation:impact .3s ease-out}
-@keyframes flicker{from{transform:translateY(-3px) rotate(-5deg);filter:brightness(1.5)}to{transform:translateY(3px) rotate(5deg);filter:brightness(.7)}}
-@keyframes drop{0%{transform:translateY(-230px) rotate(-160deg);opacity:.1}65%{transform:translateY(10px) rotate(20deg);opacity:1}82%{transform:translateY(-8px) rotate(-7deg)}100%{transform:translateY(0) rotate(0)}}
+@keyframes flicker{from{transform:translateY(-4px) rotate(-5deg);filter:brightness(1.5)}to{transform:translateY(4px) rotate(5deg);filter:brightness(.7)}}
+@keyframes drop{0%{transform:translateY(-210px) rotate(-160deg);opacity:0}65%{transform:translateY(9px) rotate(20deg);opacity:1}85%{transform:translateY(-5px) rotate(-5deg)}100%{transform:translateY(0) rotate(0)}}
 @keyframes impact{0%{transform:scale(1.2)}50%{transform:scale(.9)}100%{transform:scale(1)}}
 .roll-btn{
-  width:100%;margin-top:17px;padding:17px;
-  border:0;border-radius:13px;color:white;
-  background:linear-gradient(100deg,#7948dc,#4778ef);
-  font-weight:900;font-size:13px;letter-spacing:2px;
-  box-shadow:0 9px 25px #6549dc55;transition:.2s
+ width:100%;margin-top:16px;padding:19px;border:2px solid #c1aaff;border-radius:13px;
+ color:white;background:linear-gradient(100deg,var(--accent),var(--accent2));
+ font-size:12px;font-weight:900;letter-spacing:2px;
+ box-shadow:0 0 0 3px #9467ff22,0 9px 27px #6849dc55;transition:.2s
 }
-.roll-btn:hover{transform:translateY(-2px);filter:brightness(1.12)}
+.roll-btn:hover{transform:translateY(-2px);filter:brightness(1.12);box-shadow:0 0 0 4px #9467ff30,0 12px 32px #6849dc77}
+.roll-btn:active{transform:scale(.99)}
 .roll-btn:disabled{opacity:.55;cursor:wait;transform:none}
-.result{
-  display:none;margin-top:16px;padding:16px;border-radius:13px;
-  text-align:center;background:#151d2c;border:1px solid var(--line)
-}
+.result{display:none;margin-top:15px;padding:18px;border-radius:14px;text-align:center;background:#151e2f;border:2px solid var(--line)}
 .result.show{display:block;animation:appear .35s ease}
-@keyframes appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.result-title{font-size:22px;font-weight:900;letter-spacing:1px}
+.result.win{background:#112e25;border-color:#29dfa3;box-shadow:0 0 0 3px #29dfa322,0 0 25px #29dfa322}
+.result.loss{background:#301824;border-color:#ff5c79;box-shadow:0 0 0 3px #ff5c7922,0 0 25px #ff5c7922}
+.result-title{font-size:25px;font-weight:900;letter-spacing:1px}
 .result.win .result-title{color:var(--green)}
 .result.loss .result-title{color:var(--red)}
-.result-detail{font-size:11px;color:#aab6cb;margin-top:8px;line-height:1.6}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}
-.stat{background:#151d2b;border:1px solid #29364d;border-radius:12px;padding:13px}
-.stat small{font-size:9px;color:var(--muted);font-weight:800;letter-spacing:1px}
-.stat strong{display:block;font-size:20px;margin-top:7px}
-.stat .green{color:var(--green)}
-.stat .red{color:var(--red)}
-.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
-.probability-value{font-size:32px;font-weight:900;color:#a995ff;margin:8px 0}
-.probability-bar{height:9px;background:#293247;border-radius:20px;overflow:hidden;margin:12px 0}
-.probability-fill{height:100%;width:0;background:linear-gradient(90deg,#8b5cf6,#38bdf8);border-radius:20px;transition:width .3s}
-.probability-note{font-size:10px;color:var(--muted);line-height:1.7}
-.rule-list{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin-top:13px}
-.rule{
-  text-align:center;padding:10px 2px;border-radius:9px;
-  background:#1b2536;border:1px solid #303c52
-}
-.rule b{display:block;font-size:16px}
-.rule small{display:block;font-size:8px;color:var(--muted);margin-top:5px}
-.rule.win{border-color:#24644d;background:#112c25}
-.rule.win small{color:#69e3b1}
-.history{margin-top:18px}
-.history-list{display:flex;flex-direction:column;gap:8px}
-.history-row{
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
-  background:#182132;border:1px solid #2a354b;border-radius:10px;
-  padding:10px 12px;font-size:10px;color:#c5cee0
-}
-.history-dice{display:flex;gap:5px}
-.mini-die{width:18px;height:18px;border-radius:5px}
-.history-outcome{font-weight:900}
+.result-detail{font-size:10px;color:#bdc9db;line-height:1.8;margin-top:7px}
+.result-actions{display:flex;justify-content:center;gap:8px;margin-top:12px}
+@keyframes appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:14px}
+.stat{background:linear-gradient(145deg,#19243a,#131b2a);border:2px solid #34425d;border-radius:12px;padding:13px;box-shadow:inset 0 1px #ffffff0a}
+.stat small{font-size:8px;color:var(--muted);font-weight:900;letter-spacing:.7px}
+.stat strong{display:block;font-size:21px;margin-top:7px}
+.green{color:var(--green)}.red{color:var(--red)}
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:17px}
+.probability-value{font-size:38px;font-weight:900;color:#b69aff;margin:9px 0}
+.probability-bar{height:12px;background:#29354b;border:1px solid #53617b;border-radius:20px;overflow:hidden}
+.probability-fill{height:100%;width:50%;background:linear-gradient(90deg,var(--green),#38c4ff);border-radius:20px;transition:width .4s}
+.probability-note{font-size:9px;color:var(--muted);line-height:1.8;margin-top:11px}
+.rule-list{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.rule{text-align:center;padding:14px 5px;border-radius:10px;background:#1a2538;border:2px solid #303e56}
+.rule b{display:block;font-size:17px}
+.rule small{display:block;font-size:9px;font-weight:900;margin-top:5px}
+.rule.win{background:#112e25;border-color:#29dfa3}
+.rule.win small{color:#70e4b6}
+.rule.loss{background:#301824;border-color:#ff5c79}
+.rule.loss small{color:#ff8da0}
+.history{margin-top:17px}
+.history-header{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.history-list{display:flex;flex-direction:column;gap:7px}
+.history-row{display:flex;align-items:center;justify-content:space-between;gap:9px;background:#182337;border:2px solid #34425d;border-radius:10px;padding:10px;font-size:9px;color:#c7d1e3}
+.history-left{min-width:0}
+.history-dice{display:flex;gap:4px;flex-shrink:0}
+.mini-die{width:17px;height:17px;border-radius:5px;border:1px solid #ffffff70}
+.history-outcome{font-weight:900;white-space:nowrap}
 .history-outcome.win{color:var(--green)}
 .history-outcome.loss{color:var(--red)}
-.empty{font-size:10px;color:var(--muted);text-align:center;padding:15px}
-.footer{text-align:center;color:#58657c;font-size:9px;margin-top:22px;line-height:1.8}
-@media(max-width:800px){
-  .layout{grid-template-columns:1fr}
-  .bottom-grid{grid-template-columns:1fr}
+.empty{text-align:center;color:var(--muted);font-size:10px;padding:18px}
+.settings{margin-top:17px}
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:17px}
+.setting{padding:14px;border:2px solid #34425d;background:#151e2e;border-radius:13px}
+.setting-top{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:10px;font-weight:800}
+.setting input[type=range]{width:100%;margin-top:14px;accent-color:var(--accent)}
+.toggle{width:39px;height:22px;border:2px solid #68748c;border-radius:20px;background:#39445a;position:relative;transition:.2s;flex-shrink:0}
+.toggle:after{content:"";position:absolute;left:2px;top:2px;width:14px;height:14px;border-radius:50%;background:white;transition:.2s}
+.toggle.on{background:var(--accent);border-color:#c1aaff}
+.toggle.on:after{left:17px}
+.theme-select{display:flex;gap:8px;margin-top:12px}
+.theme-dot{width:29px;height:29px;border:2px solid #ffffff55;border-radius:9px;transition:.2s}
+.theme-dot.active{outline:2px solid white;outline-offset:2px}
+.footer{text-align:center;color:#71809b;font-size:9px;line-height:2;margin-top:23px}
+.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#202b40;border:2px solid #657493;border-radius:12px;padding:12px 17px;color:white;font-size:11px;font-weight:800;transition:.25s;z-index:10;max-width:90%;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:900px){.layout{grid-template-columns:1fr}}
+@media(max-width:600px){
+ .app{padding:15px 11px 30px}.logo h1{font-size:18px}.logo-icon{width:44px;height:44px}
+ .status{font-size:8px;padding:8px}.icon-button{width:36px;height:36px}
+ .hero{padding:19px;align-items:flex-start}.hero h2{font-size:22px}.hero-badge{display:none}
+ .panel{padding:14px}.main-panel{padding:14px}.dice{width:59px;height:59px;border-radius:14px}
+ .dice-face{font-size:28px}.dice-stage{min-height:190px;gap:9px}
+ .stats{grid-template-columns:repeat(2,1fr)}.bottom-grid{grid-template-columns:1fr}
+ .settings-grid{grid-template-columns:1fr}.history-row{flex-wrap:wrap}
+ .star-fields{gap:7px}.star-input{font-size:11px;padding:11px 7px}
 }
-@media(max-width:480px){
-  .app{padding:15px 11px 30px}
-  .panel{padding:15px}
-  .main-panel{padding:15px}
-  .logo h1{font-size:19px}
-  .status{font-size:9px;padding:8px}
-  .dice{width:61px;height:61px;font-size:30px}
-  .dice-stage{min-height:190px;gap:9px}
-  .stats{gap:6px}
-  .stat{padding:10px}
-  .stat strong{font-size:17px}
-  .rule-list{gap:4px}
-  .rule b{font-size:14px}
-}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
 <div class="app">
-  <header>
-    <div class="logo">
-      <div class="logo-icon">🎲</div>
-      <div>
-        <h1>COLOR DICE</h1>
-        <small>PURE RANDOM GAME</small>
-      </div>
-    </div>
-    <div class="status"><span class="dot"></span> ЧЕСТНЫЙ РАНДОМ</div>
-  </header>
+<header>
+ <div class="logo">
+  <div class="logo-icon">🎲</div>
+  <div><h1>COLOR DICE</h1><small>ULTRA EDITION · V5.0</small></div>
+ </div>
+ <div class="header-actions">
+  <div class="status"><span class="dot"></span> 50/50 FAIR</div>
+  <button class="icon-button" id="musicButton" title="Музыка">♫</button>
+  <button class="icon-button" id="settingsButton" title="Настройки">⚙</button>
+ </div>
+</header>
 
-  <div class="top-labels">
-    <div class="top-label">1 РОЛЛ — ТЕСТ!</div>
-    <div class="top-label">2 РОЛЛ — НЕ ТЕСТ!</div>
+<section class="hero">
+ <div>
+  <div class="hero-label">WELCOME TO THE ULTIMATE GAME</div>
+  <h2>Испытай свою удачу.</h2>
+  <p>Честный случайный результат. Ровно 50% на победу и 50% на проигрыш.</p>
+ </div>
+ <div class="hero-badge">✦ COLOR DICE V5</div>
+</section>
+
+<div class="layout">
+<aside class="panel">
+ <div class="section-title">ДОСТУПНЫЕ ЦВЕТА <span id="colorCounter">8 / 8</span></div>
+ <div class="color-list" id="colorList"></div>
+ <p class="hint">Выбери минимум 2 цвета. Каждый активный цвет имеет одинаковый шанс выпадения.</p>
+ <div class="quick-buttons">
+  <button class="secondary-button" id="allColors">✓ ВСЕ ЦВЕТА</button>
+  <button class="secondary-button" id="randomColors">✦ СЛУЧАЙНЫЕ 4</button>
+ </div>
+ <div class="divider"></div>
+ <div class="field-label">ТВОЙ ПРОГНОЗ</div>
+ <select id="targetSelect"></select>
+ <div class="quick-buttons"><button class="secondary-button" id="randomTarget">🎯 СЛУЧАЙНЫЙ ПРОГНОЗ</button></div>
+ <div class="divider"></div>
+ <div class="field-label">КОЛИЧЕСТВО КУБИКОВ</div>
+ <div class="amounts" id="amounts"></div>
+ <p class="hint">Клавиша SPACE — бросить кубики.</p>
+ <div class="divider"></div>
+ <div class="star-box">
+  <div class="star-heading"><strong>⭐ ДИАПАЗОН ЗВЁЗД</strong><span>✦</span></div>
+  <div class="star-fields">
+   <div class="star-field">
+    <label for="minStars">МИНИМУМ ЗВЁЗД</label>
+    <input class="star-input" id="minStars" type="text" value="1" placeholder="Например 1B" autocomplete="off" spellcheck="false">
+   </div>
+   <div class="star-field">
+    <label for="maxStars">МАКСИМУМ ЗВЁЗД</label>
+    <input class="star-input" id="maxStars" type="text" value="5QA" placeholder="Например 5QA" autocomplete="off" spellcheck="false">
+   </div>
   </div>
+  <div class="star-info">K — тысяча, M — миллион, B — миллиард, T — триллион, QA — квадриллион, QI — квинтиллион. Поля не влияют на броски.</div>
+  <div class="star-validation good" id="starValidation">✓ Диапазон звёзд корректен</div>
+ </div>
+</aside>
 
-  <div class="layout">
-    <aside class="panel">
-      <div class="section-title">ДОСТУПНЫЕ ЦВЕТА <span class="counter" id="colorCounter">8 / 8</span></div>
-      <div class="color-list" id="colorList"></div>
-      <p class="hint">Выбери минимум 2 цвета. Каждый активный цвет имеет одинаковую вероятность выпадения.</p>
-
-      <div class="divider"></div>
-      <div class="field-label">ТВОЙ ПРОГНОЗ</div>
-      <select id="targetSelect"></select>
-      <p class="hint">Прогноз не влияет на случайный выбор кубиков.</p>
-
-      <div class="divider"></div>
-      <div class="field-label">КОЛИЧЕСТВО КУБИКОВ</div>
-      <div class="amounts" id="amounts"></div>
-    </aside>
-
-    <main>
-      <section class="panel main-panel">
-        <div class="game-head">
-          <div>
-            <h2>БРОСОК КУБИКОВ</h2>
-            <p>Результат определяется до начала анимации</p>
-          </div>
-          <div class="fair-tag">100% EQUAL ODDS</div>
-        </div>
-
-        <div class="dice-stage" id="diceStage"></div>
-        <button class="roll-btn" id="rollBtn">🎲 БРОСИТЬ КУБИКИ</button>
-
-        <div class="result" id="result">
-          <div class="result-title" id="resultTitle"></div>
-          <div class="result-detail" id="resultDetail"></div>
-        </div>
-
-        <div class="stats">
-          <div class="stat"><small>ПОБЕДЫ</small><strong class="green" id="wins">0</strong></div>
-          <div class="stat"><small>ПОРАЖЕНИЯ</small><strong class="red" id="losses">0</strong></div>
-          <div class="stat"><small>ВСЕГО РОЛЛОВ</small><strong id="total">0</strong></div>
-        </div>
-      </section>
-
-      <div class="bottom-grid">
-        <section class="panel">
-          <div class="section-title">ТВОИ РЕАЛЬНЫЕ ШАНСЫ <span>LIVE</span></div>
-          <div class="probability-value" id="winChance">0.00%</div>
-          <div class="probability-bar"><div class="probability-fill" id="chanceFill"></div></div>
-          <div class="probability-note" id="chanceNote"></div>
-        </section>
-
-        <section class="panel">
-          <div class="section-title">ПРАВИЛА ПОБЕДЫ <span>МАТЕМАТИКА</span></div>
-          <div class="rule-list" id="ruleList"></div>
-          <p class="hint">Победа: 1, 3, 5 или 6 совпадений. Остальные результаты — проигрыш.</p>
-        </section>
-      </div>
-    </main>
+<main>
+ <section class="panel main-panel">
+  <div class="game-head">
+   <div><h2>🎲 БРОСОК КУБИКОВ</h2><p>Победа и проигрыш определяются независимым броском 50/50.</p></div>
+   <div class="fair-tag">50% / 50%</div>
   </div>
+  <div class="dice-stage" id="diceStage"></div>
+  <button class="roll-btn" id="rollBtn">🎲 БРОСИТЬ КУБИКИ</button>
+  <div class="result" id="result">
+   <div class="result-title" id="resultTitle"></div>
+   <div class="result-detail" id="resultDetail"></div>
+   <div class="result-actions"><button class="secondary-button" id="copyResult">📋 КОПИРОВАТЬ РЕЗУЛЬТАТ</button></div>
+  </div>
+  <div class="stats">
+   <div class="stat"><small>ПОБЕДЫ</small><strong class="green" id="wins">0</strong></div>
+   <div class="stat"><small>ПОРАЖЕНИЯ</small><strong class="red" id="losses">0</strong></div>
+   <div class="stat"><small>ВИНСТРИК</small><strong id="streak">0 🔥</strong></div>
+   <div class="stat"><small>ПОБЕДЫ %</small><strong id="winRate">0%</strong></div>
+  </div>
+ </section>
 
-  <section class="panel history">
-    <div class="section-title">ИСТОРИЯ РОЛЛОВ <span id="historyCount">0 записей</span></div>
-    <div class="history-list" id="historyList"><div class="empty">Пока нет бросков. Сделай первый ролл!</div></div>
+ <div class="bottom-grid">
+  <section class="panel">
+   <div class="section-title">РЕАЛЬНЫЕ ШАНСЫ <span>FAIR COIN FLIP</span></div>
+   <div class="probability-value">50.00%</div>
+   <div class="probability-bar"><div class="probability-fill"></div></div>
+   <div class="probability-note">Вероятность победы при каждом броске — ровно 50%. Вероятность проигрыша — ровно 50%. Каждый результат независим от предыдущих.</div>
   </section>
-
-  <div class="footer">
-    COLOR DICE · РАВНЫЕ ШАНСЫ ДЛЯ ВСЕХ ЦВЕТОВ<br>
-    Каждый бросок независим от предыдущего.
-  </div>
+  <section class="panel">
+   <div class="section-title">ПРАВИЛА ИГРЫ <span>50 / 50</span></div>
+   <div class="rule-list">
+    <div class="rule win"><b>50%</b><small>ПОБЕДА</small></div>
+    <div class="rule loss"><b>50%</b><small>ПРОИГРЫШ</small></div>
+   </div>
+   <p class="hint">Количество совпадений цветов показывается отдельно и не влияет на результат.</p>
+  </section>
+ </div>
+</main>
 </div>
 
+<section class="panel history">
+ <div class="history-header">
+  <div class="section-title">📊 ИСТОРИЯ РОЛЛОВ <span id="historyCount">0 записей</span></div>
+  <button class="secondary-button" id="clearHistory">ОЧИСТИТЬ</button>
+ </div>
+ <div class="history-list" id="historyList"><div class="empty">Пока нет бросков.</div></div>
+</section>
+
+<section class="panel settings" id="settingsPanel">
+ <div class="section-title">⚙ НАСТРОЙКИ И АТМОСФЕРА <span>PERSONALIZE</span></div>
+ <div class="settings-grid">
+  <div class="setting">
+   <div class="setting-top"><span>♫ ФОНОВАЯ МУЗЫКА</span><button class="toggle on" id="musicToggle" aria-label="Музыка"></button></div>
+   <input type="range" id="musicVolume" min="0" max="100" value="22">
+   <div class="hint">Громкость музыки: <span id="musicVolumeText">22%</span></div>
+  </div>
+  <div class="setting">
+   <div class="setting-top"><span>🔊 ЗВУКОВЫЕ ЭФФЕКТЫ</span><button class="toggle on" id="sfxToggle" aria-label="Звуковые эффекты"></button></div>
+   <input type="range" id="sfxVolume" min="0" max="100" value="55">
+   <div class="hint">Громкость эффектов: <span id="sfxVolumeText">55%</span></div>
+  </div>
+  <div class="setting">
+   <div class="setting-top"><span>🎨 ТЕМА ОФОРМЛЕНИЯ</span></div>
+   <div class="theme-select">
+    <button class="theme-dot active" data-theme="purple" style="background:linear-gradient(135deg,#9467ff,#478cff)" title="Purple"></button>
+    <button class="theme-dot" data-theme="green" style="background:linear-gradient(135deg,#16b981,#0ea5e9)" title="Emerald"></button>
+    <button class="theme-dot" data-theme="sunset" style="background:linear-gradient(135deg,#f97316,#ec4899)" title="Sunset"></button>
+    <button class="theme-dot" data-theme="ice" style="background:linear-gradient(135deg,#22d3ee,#6366f1)" title="Ice"></button>
+   </div>
+   <div class="hint">Измени цветовую атмосферу игры.</div>
+  </div>
+  <div class="setting">
+   <div class="setting-top"><span>📈 СТАТИСТИКА</span><button class="secondary-button" id="resetStats">СБРОСИТЬ</button></div>
+   <div class="hint">Статистика и история сохраняются в этом браузере автоматически.</div>
+  </div>
+ </div>
+</section>
+
+<div class="footer">
+ COLOR DICE · ULTRA EDITION V5.0<br>
+ FAIR RANDOM GENERATOR · INDEPENDENT 50/50 RESULT<br>
+ Музыка создаётся процедурно и не использует сторонние треки.
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
 <script>
-const colors = [
-  {name:"Красный",short:"Красный",hex:"#ef4444"},
-  {name:"Оранжевый",short:"Оранж.",hex:"#f97316"},
-  {name:"Жёлтый",short:"Жёлтый",hex:"#facc15"},
-  {name:"Зелёный",short:"Зелёный",hex:"#22a06b"},
-  {name:"Голубой",short:"Голубой",hex:"#38bdf8"},
-  {name:"Синий",short:"Синий",hex:"#3b82f6"},
-  {name:"Индиго",short:"Индиго",hex:"#4f46e5"},
-  {name:"Фиолетовый",short:"Фиолет.",hex:"#a855f7"}
+"use strict";
+
+const COLORS=[
+{name:"Красный",short:"Красный",hex:"#ef4444"},
+{name:"Оранжевый",short:"Оранж.",hex:"#f97316"},
+{name:"Жёлтый",short:"Жёлтый",hex:"#facc15"},
+{name:"Зелёный",short:"Зелёный",hex:"#22c55e"},
+{name:"Голубой",short:"Голубой",hex:"#38bdf8"},
+{name:"Синий",short:"Синий",hex:"#3b82f6"},
+{name:"Индиго",short:"Индиго",hex:"#6366f1"},
+{name:"Фиолетовый",short:"Фиолет.",hex:"#a855f7"}
 ];
 
-const enabled = new Set(colors.map(c=>c.name));
-let targetColor = colors[0].name;
-let amount = 3;
-let busy = false;
-let wins = 0;
-let losses = 0;
-let total = 0;
-let history = [];
+const $=id=>document.getElementById(id);
+const THEMES={
+purple:["#9467ff","#478cff"],
+green:["#16b981","#0ea5e9"],
+sunset:["#f97316","#ec4899"],
+ice:["#22d3ee","#6366f1"]
+};
 
-const $ = id => document.getElementById(id);
+let enabled=new Set(COLORS.map(c=>c.name));
+let targetColor="Красный",amount=3,busy=false;
+let wins=0,losses=0,total=0,streak=0,bestStreak=0;
+let history=[],lastResultText="";
+let musicEnabled=true,sfxEnabled=true,musicVolume=.22,sfxVolume=.55;
+let audio=null,musicTimer=null,lastToastTimer;
 
-function secureRandomIndex(max) {
-  if (!Number.isInteger(max) || max < 1) throw new Error("Invalid random range");
-  const range = 0x100000000;
-  const limit = Math.floor(range / max) * max;
-  const data = new Uint32Array(1);
-  do {
-    crypto.getRandomValues(data);
-  } while (data[0] >= limit);
-  return data[0] % max;
+function secureRandomIndex(max){
+ if(!Number.isInteger(max)||max<1)throw Error("Invalid range");
+ const range=4294967296,limit=Math.floor(range/max)*max;
+ const data=new Uint32Array(1);
+ do{crypto.getRandomValues(data)}while(data[0]>=limit);
+ return data[0]%max;
 }
 
-function randomColor() {
-  const available = colors.filter(c=>enabled.has(c.name));
-  return available[secureRandomIndex(available.length)];
+function randomItem(array){return array[secureRandomIndex(array.length)]}
+function getAvailable(){return COLORS.filter(c=>enabled.has(c.name))}
+
+function fairCoinFlip(){
+ const data=new Uint32Array(1);
+ crypto.getRandomValues(data);
+ return (data[0]&1)===1;
 }
 
-function probability(diceCount, colorCount) {
-  const p = 1 / colorCount;
-  const q = 1 - p;
-  let result = 0;
-
-  for (let k=0;k<=diceCount;k++) {
-    if (![1,3,5,6].includes(k)) continue;
-
-    let combination = 1;
-    for (let i=1;i<=k;i++) {
-      combination = combination * (diceCount-i+1) / i;
-    }
-
-    result += combination * Math.pow(p,k) * Math.pow(q,diceCount-k);
-  }
-  return result;
+function parseStarNumber(value){
+ const input=String(value).trim().toUpperCase().replace(/,/g,".");
+ const match=input.match(/^(\d+(?:\.\d+)?|\.\d+)\s*(K|M|B|T|QA|QI)?$/);
+ if(!match)return null;
+ const powers={K:3,M:6,B:9,T:12,QA:15,QI:18};
+ const suffix=match[2]||"";
+ const power=powers[suffix]||0;
+ const parts=match[1].split(".");
+ const integer=parts[0]||"0";
+ const fraction=parts[1]||"";
+ const digits=(integer+fraction).replace(/^0+(?=\d)/,"");
+ const exponent=power-fraction.length;
+ if(exponent>=0)return {value:BigInt((digits||"0")+"0".repeat(exponent))};
+ const cut=-exponent;
+ const whole=digits.length>cut?digits.slice(0,digits.length-cut):"0";
+ const decimal=digits.length>cut?digits.slice(digits.length-cut):"0".repeat(cut-digits.length)+digits;
+ return {whole:BigInt(whole||"0"),decimal:decimal.replace(/0+$/,"")};
 }
 
-function renderColors() {
-  const list = $("colorList");
-  list.innerHTML = "";
+function compareStarNumbers(a,b){
+ const av=a.whole!==undefined?a.whole:a.value;
+ const bv=b.whole!==undefined?b.whole:b.value;
+ if(av<bv)return -1;
+ if(av>bv)return 1;
+ const ad=a.decimal||"",bd=b.decimal||"";
+ const length=Math.max(ad.length,bd.length);
+ const aa=ad.padEnd(length,"0"),bb=bd.padEnd(length,"0");
+ return aa<bb?-1:aa>bb?1:0;
+}
 
-  colors.forEach(color=>{
-    const active = enabled.has(color.name);
-    const button = document.createElement("button");
-    button.className = "color-option" + (active ? " active" : "");
-    button.innerHTML = `
-      <span class="color-dot" style="background:${color.hex}"></span>
-      <span>${color.short}</span>
-      <span class="check">${active ? "✓" : ""}</span>
-    `;
-    button.onclick = ()=>{
-      if (busy) return;
-      if (active && enabled.size <= 2) {
-        alert("Нужно оставить минимум 2 цвета.");
-        return;
-      }
-      if (active) enabled.delete(color.name);
-      else enabled.add(color.name);
+function validateStars(showToast=false){
+ const min=parseStarNumber($("minStars").value);
+ const max=parseStarNumber($("maxStars").value);
+ const status=$("starValidation");
+ let valid=true,message="✓ Диапазон звёзд корректен";
+ if(!min||!max){valid=false;message="Введите корректные числа";}
+ else if(compareStarNumbers(min,{value:1n})<0||compareStarNumbers(max,{value:1n})<0){valid=false;message="Минимальное значение — 1";}
+ else if(compareStarNumbers(max,min)<0){valid=false;message="Максимум не может быть меньше минимума";}
+ status.textContent=message;
+ status.className="star-validation "+(valid?"good":"bad");
+ $("minStars").style.borderColor=valid?"#574575":"var(--red)";
+ $("maxStars").style.borderColor=valid?"#574575":"var(--red)";
+ if(showToast&&!valid)toast(message);
+ save();
+ return valid;
+}
 
-      if (!enabled.has(targetColor)) {
-        targetColor = colors.find(c=>enabled.has(c.name)).name;
-      }
-      renderColors();
-      renderTarget();
-      updateProbability();
-    };
-    list.appendChild(button);
+function save(){
+ try{
+  localStorage.setItem("colorDiceUltraV5",JSON.stringify({
+   wins,losses,total,streak,bestStreak,history,
+   theme:document.body.dataset.theme||"purple",
+   minStars:$("minStars").value,maxStars:$("maxStars").value
+  }));
+ }catch(e){}
+}
+
+function load(){
+ try{
+  const data=JSON.parse(localStorage.getItem("colorDiceUltraV5")||"null");
+  if(!data)return;
+  wins=Number(data.wins)||0;
+  losses=Number(data.losses)||0;
+  total=Number(data.total)||0;
+  streak=Number(data.streak)||0;
+  bestStreak=Number(data.bestStreak)||0;
+  history=Array.isArray(data.history)?data.history.slice(0,10):[];
+  if(THEMES[data.theme])applyTheme(data.theme,false);
+  if(typeof data.minStars==="string")$("minStars").value=data.minStars;
+  if(typeof data.maxStars==="string")$("maxStars").value=data.maxStars;
+ }catch(e){}
+}
+
+function updateStats(){
+ $("wins").textContent=wins;
+ $("losses").textContent=losses;
+ $("streak").textContent=streak+" 🔥";
+ $("winRate").textContent=(total?wins/total*100:0).toFixed(1)+"%";
+}
+
+function toast(message){
+ const el=$("toast");
+ el.textContent=message;
+ el.classList.add("show");
+ clearTimeout(lastToastTimer);
+ lastToastTimer=setTimeout(()=>el.classList.remove("show"),2200);
+}
+
+function audioContext(){
+ if(!audio){
+  const AC=window.AudioContext||window.webkitAudioContext;
+  if(!AC)return null;
+  audio=new AC();
+ }
+ if(audio.state==="suspended")audio.resume();
+ return audio;
+}
+
+function tone(frequency,duration=.12,type="sine",volume=1,when=0){
+ const ctx=audioContext();
+ if(!ctx||!sfxEnabled||sfxVolume<=0)return;
+ const osc=ctx.createOscillator(),gain=ctx.createGain();
+ const now=ctx.currentTime+when;
+ osc.type=type;
+ osc.frequency.setValueAtTime(frequency,now);
+ gain.gain.setValueAtTime(Math.max(.0001,sfxVolume*volume),now);
+ gain.gain.exponentialRampToValueAtTime(.0001,now+duration);
+ osc.connect(gain);gain.connect(ctx.destination);
+ osc.start(now);osc.stop(now+duration+.02);
+}
+
+function playClick(){tone(550,.055,"sine",.24);tone(820,.045,"sine",.12,.035)}
+function playSelect(){tone(480,.07,"sine",.25);tone(690,.09,"sine",.18,.06)}
+function playRoll(){[240,330,440,560].forEach((f,i)=>tone(f,.06,"triangle",.28,i*.055))}
+function playLand(){tone(110,.18,"triangle",.7);tone(180,.12,"sine",.35,.035)}
+function playWin(){[523,659,784,1046].forEach((f,i)=>tone(f,.3,"sine",.45,i*.1))}
+function playLoss(){[330,277,220].forEach((f,i)=>tone(f,.25,"triangle",.4,i*.12))}
+
+function startMusic(){
+ const ctx=audioContext();
+ if(!ctx||!musicEnabled||musicVolume<=0||musicTimer)return;
+ const master=ctx.createGain();
+ master.gain.value=musicVolume*.24;
+ master.connect(ctx.destination);
+ const notes=[261.63,329.63,392,493.88,392,329.63,293.66,349.23];
+ const bass=[130.81,164.81,196,146.83];
+ let step=0;
+ function musicNote(freq,duration,delay,volume,type){
+  const now=ctx.currentTime+delay;
+  const osc=ctx.createOscillator(),gain=ctx.createGain();
+  osc.type=type;osc.frequency.setValueAtTime(freq,now);
+  gain.gain.setValueAtTime(.0001,now);
+  gain.gain.linearRampToValueAtTime(volume,now+.035);
+  gain.gain.exponentialRampToValueAtTime(.0001,now+duration);
+  osc.connect(gain);gain.connect(master);
+  osc.start(now);osc.stop(now+duration+.02);
+ }
+ function tick(){
+  if(!musicEnabled||!audio||audio.state!=="running")return;
+  const note=notes[step%notes.length];
+  musicNote(note,.32,0,.22,"sine");
+  musicNote(note*2,.19,.02,.055,"triangle");
+  if(step%4===0)musicNote(bass[Math.floor(step/4)%bass.length],.65,0,.28,"triangle");
+  step++;
+ }
+ tick();
+ musicTimer=setInterval(tick,380);
+ master.gain.setTargetAtTime(musicVolume*.24,ctx.currentTime,.1);
+}
+
+function stopMusic(){
+ if(musicTimer){clearInterval(musicTimer);musicTimer=null}
+}
+
+function setMusic(value){
+ musicEnabled=value;
+ $("musicToggle").classList.toggle("on",value);
+ $("musicButton").textContent=value?"♫":"♪";
+ if(value)startMusic();else stopMusic();
+}
+
+function renderColors(){
+ const list=$("colorList");
+ list.innerHTML="";
+ COLORS.forEach(color=>{
+  const active=enabled.has(color.name);
+  const button=document.createElement("button");
+  button.className="color-option"+(active?" active":"");
+  const dot=document.createElement("span");
+  dot.className="color-dot";dot.style.background=color.hex;
+  const name=document.createElement("span");name.textContent=color.short;
+  const check=document.createElement("span");
+  check.className="check";check.textContent=active?"✓":"";
+  button.append(dot,name,check);
+  button.onclick=()=>{
+   if(busy)return;
+   if(active&&enabled.size<=2){toast("Нужно оставить минимум 2 цвета");return}
+   if(active)enabled.delete(color.name);else enabled.add(color.name);
+   if(!enabled.has(targetColor))targetColor=getAvailable()[0].name;
+   renderColors();renderTarget();playSelect();
+  };
+  list.appendChild(button);
+ });
+ $("colorCounter").textContent=enabled.size+" / 8";
+}
+
+function renderTarget(){
+ const select=$("targetSelect");
+ select.innerHTML="";
+ getAvailable().forEach(color=>{
+  const option=document.createElement("option");
+  option.value=color.name;option.textContent=color.name;
+  select.appendChild(option);
+ });
+ select.value=targetColor;
+}
+
+function renderAmounts(){
+ const box=$("amounts");box.innerHTML="";
+ for(let i=1;i<=6;i++){
+  const button=document.createElement("button");
+  button.className="amount"+(amount===i?" active":"");
+  button.textContent=i;
+  button.onclick=()=>{
+   if(busy)return;
+   amount=i;renderAmounts();renderDice();
+   $("result").className="result";playSelect();
+  };
+  box.appendChild(button);
+ }
+}
+
+function renderDice(){
+ const stage=$("diceStage");stage.innerHTML="";
+ for(let i=0;i<amount;i++){
+  const die=document.createElement("div");
+  die.className="dice unknown";
+  const face=document.createElement("div");
+  face.className="dice-face";face.textContent="?";
+  die.appendChild(face);stage.appendChild(die);
+ }
+}
+
+function renderHistory(){
+ const box=$("historyList");box.innerHTML="";
+ $("historyCount").textContent=history.length+" записей";
+ if(!history.length){box.innerHTML='<div class="empty">Пока нет бросков.</div>';return}
+ history.forEach(item=>{
+  const row=document.createElement("div");row.className="history-row";
+  const left=document.createElement("span");left.className="history-left";
+  left.textContent=`#${item.number} · ${item.target} · ${item.matches} совп.`;
+  const dice=document.createElement("div");dice.className="history-dice";
+  item.result.forEach(color=>{
+   const dot=document.createElement("span");
+   dot.className="mini-die";dot.style.background=color.hex;dice.appendChild(dot);
   });
-
-  $("colorCounter").textContent = `${enabled.size} / 8`;
+  const outcome=document.createElement("span");
+  outcome.className="history-outcome "+(item.won?"win":"loss");
+  outcome.textContent=item.won?"ПОБЕДА":"ПРОИГРЫШ";
+  row.append(left,dice,outcome);box.appendChild(row);
+ });
 }
 
-function renderTarget() {
-  const select = $("targetSelect");
-  select.innerHTML = "";
-  colors.filter(c=>enabled.has(c.name)).forEach(color=>{
-    const option = document.createElement("option");
-    option.value = color.name;
-    option.textContent = color.name;
-    select.appendChild(option);
-  });
-  select.value = targetColor;
+function setResultText(result,target,matches,won,count){
+ return `COLOR DICE #${total}\nКубики: ${result.map(c=>c.name).join(", ")}\nПрогноз: ${target}\nСовпадений: ${matches}/${count}\nШанс исхода: 50/50\nРезультат: ${won?"ПОБЕДА":"ПРОИГРЫШ"}`;
 }
 
-function renderAmounts() {
-  const box = $("amounts");
-  box.innerHTML = "";
-  for (let i=1;i<=6;i++) {
-    const button = document.createElement("button");
-    button.className = "amount" + (amount===i ? " active" : "");
-    button.textContent = i;
-    button.onclick = ()=>{
-      if (busy) return;
-      amount = i;
-      renderAmounts();
-      renderDiceQuestions();
-      updateProbability();
-    };
-    box.appendChild(button);
-  }
-}
+async function roll(){
+ if(busy)return;
+ busy=true;
+ $("rollBtn").disabled=true;
+ $("rollBtn").textContent="🎲 БРОСАЕМ КУБИКИ...";
+ $("result").className="result";
 
-function renderDiceQuestions() {
-  const stage = $("diceStage");
-  stage.innerHTML = "";
-  for (let i=0;i<amount;i++) {
-    const die = document.createElement("div");
-    die.className = "dice unknown";
-    die.textContent = "?";
-    stage.appendChild(die);
-  }
-}
+ const available=getAvailable();
+ const selectedTarget=targetColor;
+ const count=amount;
 
-function updateProbability() {
-  const count = enabled.size;
-  const chance = probability(amount,count);
-  const percent = chance*100;
+ const result=Array.from({length:count},()=>randomItem(available));
+ const matches=result.filter(c=>c.name===selectedTarget).length;
 
-  $("winChance").textContent = percent.toFixed(2)+"%";
-  $("chanceFill").style.width = percent+"%";
-  $("chanceNote").textContent =
-    `Кубиков: ${amount}. Активных цветов: ${count}. `+
-    `Шанс выпадения выбранного цвета на одном кубике: ${(100/count).toFixed(2)}%. `+
-    `Вероятность победы рассчитана по всем возможным комбинациям.`;
+ // Independent fair 50/50 outcome. Dice matches do not affect it.
+ const won=fairCoinFlip();
 
-  const ruleBox = $("ruleList");
-  ruleBox.innerHTML = "";
-  for (let i=1;i<=6;i++) {
-    const isWin = [1,3,5,6].includes(i);
-    const item = document.createElement("div");
-    item.className = "rule"+(isWin ? " win" : "");
-    item.innerHTML = `<b>${i}</b><small>${isWin ? "ПОБЕДА" : "ПРОИГРЫШ"}</small>`;
-    ruleBox.appendChild(item);
-  }
-}
+ const dice=[...$("diceStage").children];
+ dice.forEach(die=>{
+  die.className="dice unknown flicker";
+  die.querySelector(".dice-face").textContent="?";
+ });
 
-function sleep(ms) {
-  return new Promise(resolve=>setTimeout(resolve,ms));
-}
+ playRoll();
 
-async function roll() {
-  if (busy) return;
-  busy = true;
-  $("rollBtn").disabled = true;
-  $("rollBtn").textContent = "🎲 КУБИКИ БРОСАЮТСЯ...";
-  $("result").className = "result";
-
-  const available = colors.filter(c=>enabled.has(c.name));
-  const selectedTarget = targetColor;
-
-  // Итог генерируется один раз до анимации.
-  // Прогноз игрока не используется для генерации результата.
-  const result = Array.from({length:amount},()=>randomColor());
-  const matches = result.filter(c=>c.name===selectedTarget).length;
-  const won = [1,3,5,6].includes(matches);
-
-  const dice = [...$("diceStage").children];
+ for(let frame=0;frame<13;frame++){
   dice.forEach(die=>{
-    die.textContent = "?";
-    die.className = "dice unknown flicker";
+   const color=randomItem(available);
+   die.style.background=`linear-gradient(145deg,${color.hex},#151d2e)`;
   });
+  await new Promise(resolve=>setTimeout(resolve,95));
+ }
 
-  for (let frame=0;frame<12;frame++) {
-    dice.forEach(die=>{
-      const random = available[secureRandomIndex(available.length)];
-      die.style.background = `linear-gradient(145deg,${random.hex},#151d2e)`;
-    });
-    await sleep(110);
-  }
+ dice.forEach((die,index)=>{
+  die.className="dice drop";
+  die.style.background=`linear-gradient(145deg,${result[index].hex},#151d2e)`;
+  die.style.borderColor=result[index].hex;
+  die.querySelector(".dice-face").textContent="●";
+  die.style.animationDelay=index*.08+"s";
+ });
 
-  dice.forEach((die,index)=>{
-    die.className = "dice drop";
-    die.style.background = `linear-gradient(145deg,${result[index].hex},#151d2e)`;
-    die.style.borderColor = result[index].hex;
-    die.textContent = "●";
-    die.style.color = "white";
-    die.style.textShadow = "0 2px 8px #0008";
-    die.style.animationDelay = (index*0.09)+"s";
-  });
+ await new Promise(resolve=>setTimeout(resolve,850));
+ dice.forEach(die=>die.className="dice impact");
+ playLand();
 
-  await sleep(1100);
+ total++;
+ if(won){wins++;streak++;bestStreak=Math.max(bestStreak,streak)}
+ else{losses++;streak=0}
 
-  dice.forEach((die,index)=>{
-    die.className = "dice impact";
-    die.textContent = "●";
-    die.style.background = `linear-gradient(145deg,${result[index].hex},#151d2e)`;
-  });
+ updateStats();
+ $("result").className="result show "+(won?"win":"loss");
+ $("resultTitle").textContent=won?"✦ ПОБЕДА!":"ПОРАЖЕНИЕ";
+ $("resultDetail").textContent=`Совпадений цветов: ${matches} из ${count}. Прогноз: ${selectedTarget}. Шанс победы: 50%. Текущая серия: ${streak}. Лучший винстрик: ${bestStreak}.`;
+ lastResultText=setResultText(result,selectedTarget,matches,won,count);
 
-  total++;
-  if (won) wins++;
-  else losses++;
+ history.unshift({number:total,target:selectedTarget,matches,won,result});
+ history=history.slice(0,10);
+ renderHistory();save();
 
-  $("wins").textContent = wins;
-  $("losses").textContent = losses;
-  $("total").textContent = total;
+ if(won)playWin();else playLoss();
 
-  $("result").className = "result show "+(won ? "win" : "loss");
-  $("resultTitle").textContent = won ? "ПОБЕДА!" : "ПРОИГРЫШ";
-  $("resultDetail").textContent =
-    `Совпадений: ${matches} из ${amount}. Твой прогноз: ${selectedTarget}. `+
-    `Правило: ${[1,3,5,6].includes(matches) ? "победа" : "проигрыш"}.`;
-
-  history.unshift({result,selectedTarget,matches,won});
-  history = history.slice(0,8);
-  renderHistory();
-
-  $("rollBtn").disabled = false;
-  $("rollBtn").textContent = "🎲 БРОСИТЬ ЕЩЁ РАЗ";
-  busy = false;
+ $("rollBtn").disabled=false;
+ $("rollBtn").textContent="🎲 БРОСИТЬ ЕЩЁ РАЗ";
+ busy=false;
 }
 
-function renderHistory() {
-  const box = $("historyList");
-  box.innerHTML = "";
-  $("historyCount").textContent = history.length+" записей";
+function applyTheme(name,saveData=true){
+ if(!THEMES[name])return;
+ const [a,b]=THEMES[name];
+ document.documentElement.style.setProperty("--accent",a);
+ document.documentElement.style.setProperty("--accent2",b);
+ document.body.dataset.theme=name;
+ document.querySelectorAll(".theme-dot").forEach(button=>{
+  button.classList.toggle("active",button.dataset.theme===name);
+ });
+ if(saveData)save();
+}
 
-  if (!history.length) {
-    box.innerHTML = '<div class="empty">Пока нет бросков.</div>';
-    return;
-  }
+async function copyResult(){
+ if(!lastResultText){toast("Сначала сделай бросок");return}
+ try{await navigator.clipboard.writeText(lastResultText);toast("Результат скопирован!")}
+ catch(e){toast("Не удалось скопировать")}
+}
 
-  history.forEach((item,index)=>{
-    const row = document.createElement("div");
-    row.className = "history-row";
+function clearHistory(){
+ if(busy)return;
+ if(!confirm("Очистить историю бросков?"))return;
+ history=[];renderHistory();save();toast("История очищена");playClick();
+}
 
-    const dice = document.createElement("div");
-    dice.className = "history-dice";
-    item.result.forEach(color=>{
-      const dot = document.createElement("span");
-      dot.className = "mini-die";
-      dot.style.background = color.hex;
-      dice.appendChild(dot);
-    });
-
-    const left = document.createElement("span");
-    left.textContent = `#${total-index} · ${item.selectedTarget} · ${item.matches} совп.`;
-
-    const outcome = document.createElement("span");
-    outcome.className = "history-outcome "+(item.won ? "win" : "loss");
-    outcome.textContent = item.won ? "ПОБЕДА" : "ПРОИГРЫШ";
-
-    row.append(left,dice,outcome);
-    box.appendChild(row);
-  });
+function resetStats(){
+ if(busy)return;
+ if(!confirm("Сбросить всю статистику и историю?"))return;
+ wins=0;losses=0;total=0;streak=0;bestStreak=0;history=[];lastResultText="";
+ $("result").className="result";
+ updateStats();renderHistory();save();toast("Статистика сброшена");playClick();
 }
 
 $("targetSelect").addEventListener("change",event=>{
-  targetColor = event.target.value;
-  updateProbability();
+ targetColor=event.target.value;playSelect();
 });
 
-$("rollBtn").addEventListener("click",roll);
+$("rollBtn").addEventListener("click",()=>{audioContext();roll()});
 
+$("allColors").onclick=()=>{
+ if(busy)return;
+ enabled=new Set(COLORS.map(c=>c.name));
+ renderColors();renderTarget();playSelect();toast("Все цвета включены");
+};
+
+$("randomColors").onclick=()=>{
+ if(busy)return;
+ const shuffled=[...COLORS];
+ for(let i=shuffled.length-1;i>0;i--){
+  const j=secureRandomIndex(i+1);
+  [shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]];
+ }
+ enabled=new Set(shuffled.slice(0,4).map(c=>c.name));
+ if(!enabled.has(targetColor))targetColor=getAvailable()[0].name;
+ renderColors();renderTarget();playSelect();toast("Выбраны 4 случайных цвета");
+};
+
+$("randomTarget").onclick=()=>{
+ targetColor=randomItem(getAvailable()).name;
+ renderTarget();playSelect();toast("Прогноз выбран случайно");
+};
+
+$("copyResult").onclick=copyResult;
+$("clearHistory").onclick=clearHistory;
+$("resetStats").onclick=resetStats;
+
+$("settingsButton").onclick=()=>{
+ $("settingsPanel").scrollIntoView({behavior:"smooth",block:"center"});playClick();
+};
+
+$("musicButton").onclick=()=>{audioContext();setMusic(!musicEnabled);playClick()};
+$("musicToggle").onclick=()=>{audioContext();setMusic(!musicEnabled)};
+
+$("sfxToggle").onclick=()=>{
+ sfxEnabled=!sfxEnabled;
+ $("sfxToggle").classList.toggle("on",sfxEnabled);
+ if(sfxEnabled)playClick();
+};
+
+$("musicVolume").oninput=event=>{
+ musicVolume=Number(event.target.value)/100;
+ $("musicVolumeText").textContent=event.target.value+"%";
+ if(musicEnabled){stopMusic();startMusic()}
+};
+
+$("sfxVolume").oninput=event=>{
+ sfxVolume=Number(event.target.value)/100;
+ $("sfxVolumeText").textContent=event.target.value+"%";
+};
+
+document.querySelectorAll(".theme-dot").forEach(button=>{
+ button.onclick=()=>{
+  applyTheme(button.dataset.theme);playSelect();toast("Тема изменена");
+ };
+});
+
+$("minStars").addEventListener("input",()=>validateStars());
+$("maxStars").addEventListener("input",()=>validateStars());
+$("minStars").addEventListener("change",()=>validateStars(true));
+$("maxStars").addEventListener("change",()=>validateStars(true));
+
+document.addEventListener("keydown",event=>{
+ if(event.code==="Space"&&!["INPUT","SELECT","TEXTAREA","BUTTON"].includes(document.activeElement.tagName)){
+  event.preventDefault();
+  if(!busy){audioContext();roll()}
+ }
+});
+
+document.addEventListener("pointerdown",()=>{
+ if(musicEnabled)startMusic();
+},{once:true});
+
+load();
 renderColors();
 renderTarget();
 renderAmounts();
-renderDiceQuestions();
-updateProbability();
+renderDice();
+updateStats();
+renderHistory();
+validateStars();
+
+$("musicVolume").value=22;
+$("sfxVolume").value=55;
+$("musicVolumeText").textContent="22%";
+$("sfxVolumeText").textContent="55%";
 </script>
 </body>
 </html>
