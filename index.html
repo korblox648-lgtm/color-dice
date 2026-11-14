@@ -1,218 +1,284 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#080a13">
-<title>COLOR DICE ULTRA V5</title>
+<title>COLOR DICE — ULTRA</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
 <style>
 :root{
- --bg:#080a13;--panel:#111827;--panel2:#19243a;--line:#354563;
- --muted:#91a0ba;--white:#f5f7ff;--accent:#9567ff;--accent2:#478cff;
- --green:#29dfa3;--red:#ff5c79;
+ --bg:#080a13;
+ --panel:#111625;
+ --panel2:#171f32;
+ --line:#29344c;
+ --muted:#8592ab;
+ --white:#f5f7ff;
+ --accent:#9467ff;
+ --accent2:#478cff;
+ --green:#29dfa3;
+ --red:#ff5c79;
+ --shadow:0 18px 55px #0005;
 }
 *{box-sizing:border-box}
 body{
- margin:0;min-height:100vh;color:var(--white);font-family:Inter,Arial,sans-serif;
- background:radial-gradient(ellipse at 10% 0%,#7138ce45,transparent 38%),
- radial-gradient(ellipse at 95% 15%,#087cb540,transparent 38%),var(--bg)
+ margin:0;min-height:100vh;color:var(--white);
+ background:
+ radial-gradient(ellipse at 10% 0%,#7138ce35,transparent 36%),
+ radial-gradient(ellipse at 95% 15%,#087cb52b,transparent 36%),
+ var(--bg);
+ font-family:Inter,Arial,sans-serif;
+ transition:background .3s;
 }
 button,input,select{font:inherit}
 button{cursor:pointer}
-button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+button:focus-visible,input:focus-visible,select:focus-visible{
+ outline:2px solid var(--accent);outline-offset:3px
+}
 .app{max-width:1450px;margin:auto;padding:25px 23px 45px}
-header{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:25px}
+header{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:27px;flex-wrap:wrap}
 .logo{display:flex;align-items:center;gap:13px}
 .logo-icon{
- width:55px;height:55px;border-radius:17px;display:grid;place-items:center;
- font-size:29px;background:linear-gradient(135deg,var(--accent),var(--accent2));
- border:2px solid #c1aaff;box-shadow:0 0 0 3px #9467ff30,0 8px 30px #7448e855
+ width:53px;height:53px;border-radius:17px;display:grid;place-items:center;
+ font-size:28px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+ box-shadow:0 8px 30px #7448e855
 }
 .logo h1{margin:0;font-size:23px;font-weight:900;letter-spacing:2px}
 .logo small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:5px}
-.header-actions{display:flex;align-items:center;gap:9px}
-.status,.fair-tag{
+.header-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.status{
  display:flex;align-items:center;gap:8px;padding:10px 13px;
- border:2px solid #277d5b;background:#10271f;color:#75e9bb;
- border-radius:30px;font-size:9px;font-weight:900;white-space:nowrap;
- box-shadow:0 0 15px #29dfa322
+ border:1px solid #24644c;background:#10271f;color:#75e9bb;
+ border-radius:30px;font-size:9px;font-weight:900
 }
 .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
 .icon-button{
- width:43px;height:43px;border:2px solid var(--line);
- background:linear-gradient(145deg,#1d2940,#111827);color:white;
- border-radius:13px;font-size:17px;transition:.2s;box-shadow:0 4px 12px #0005
+ width:42px;height:42px;border:1px solid var(--line);
+ background:var(--panel);color:white;border-radius:13px;font-size:17px;
+ transition:.2s
 }
-.icon-button:hover{background:var(--panel2);transform:translateY(-2px);border-color:var(--accent);box-shadow:0 0 15px #9467ff55}
+.icon-button:hover{background:var(--panel2);transform:translateY(-2px)}
 .hero{
  display:flex;justify-content:space-between;align-items:center;gap:20px;
- padding:28px;margin-bottom:20px;border:2px solid #57458a;border-radius:21px;
- background:linear-gradient(115deg,#21183e,#111c30 75%);
- box-shadow:0 0 0 4px #9467ff13,0 20px 50px #0006;overflow:hidden;position:relative
+ padding:25px 26px;margin-bottom:18px;border:1px solid var(--line);
+ border-radius:19px;background:linear-gradient(115deg,#1d1838,#111c30 70%);
+ box-shadow:var(--shadow);overflow:hidden;position:relative
 }
-.hero:after{content:"🎲";position:absolute;right:35px;top:50%;transform:translateY(-50%) rotate(-15deg);font-size:105px;opacity:.12;pointer-events:none}
+.hero:after{
+ content:"🎲";position:absolute;right:35px;top:50%;transform:translateY(-50%) rotate(-15deg);
+ font-size:100px;opacity:.10;pointer-events:none
+}
 .hero-label{font-size:9px;letter-spacing:2px;color:#b69cff;font-weight:900}
-.hero h2{font-size:28px;letter-spacing:-1px;margin:9px 0 5px}
+.hero h2{font-size:27px;letter-spacing:-1px;margin:9px 0 5px}
 .hero p{font-size:11px;color:#aab5cb;line-height:1.7;margin:0}
-.hero-badge{position:relative;z-index:1;background:#211b3b;border:2px solid #8066c0;padding:13px 16px;border-radius:12px;font-size:10px;font-weight:900;color:#c9b8ff;white-space:nowrap;box-shadow:0 0 20px #9467ff33}
-.layout{display:grid;grid-template-columns:320px minmax(0,1fr);gap:19px;align-items:start}
-.panel{
- background:linear-gradient(145deg,#151e30f7,#0e1422fa);
- border:2px solid var(--line);border-radius:19px;padding:19px;
- box-shadow:0 0 0 3px #ffffff08,0 12px 38px #0004;min-width:0
+.hero-badge{
+ position:relative;z-index:1;background:#211b3b;border:1px solid #634c9d;
+ padding:12px 15px;border-radius:12px;font-size:10px;font-weight:900;
+ color:#c9b8ff;white-space:nowrap
 }
-.section-title{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:10px;font-weight:900;letter-spacing:1px;margin-bottom:16px}
+.layout{display:grid;grid-template-columns:310px minmax(0,1fr);gap:18px;align-items:start}
+.panel{
+ background:linear-gradient(145deg,#151d2eee,#0e1421f5);
+ border:1px solid var(--line);border-radius:18px;padding:19px;
+ box-shadow:0 12px 38px #0003;min-width:0
+}
+.section-title{
+ display:flex;align-items:center;justify-content:space-between;gap:8px;
+ font-size:10px;font-weight:900;letter-spacing:1px;margin-bottom:16px
+}
 .section-title span{font-size:9px;color:var(--muted);letter-spacing:0}
 .color-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .color-option{
- display:flex;align-items:center;gap:8px;padding:11px 8px;
- border-radius:11px;border:2px solid #35425c;background:#192337;
+ display:flex;align-items:center;gap:8px;padding:10px 8px;
+ border-radius:10px;border:1px solid #2b3850;background:#192337;
  color:#cbd5e8;font-size:10px;font-weight:800;transition:.2s
 }
-.color-option:hover{transform:translateY(-2px);border-color:#a28aff;box-shadow:0 0 12px #9467ff33}
-.color-option.active{background:#252b43;border-color:var(--accent);color:white;box-shadow:0 0 0 2px #9467ff25,0 0 15px #9467ff22}
-.color-dot{width:14px;height:14px;border-radius:5px;flex-shrink:0;border:1px solid #ffffff66}
+.color-option:hover{transform:translateY(-2px);border-color:#8191b0}
+.color-option.active{background:#252b43;border-color:var(--accent);color:white}
+.color-dot{width:14px;height:14px;border-radius:5px;flex-shrink:0}
 .check{margin-left:auto;color:var(--green)}
 .hint{font-size:10px;line-height:1.8;color:var(--muted);margin:12px 0 0}
-.divider{height:2px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:19px 0}
+.divider{height:1px;background:var(--line);margin:18px 0}
 .field-label{font-size:9px;font-weight:900;color:#aab8d0;letter-spacing:1px;margin-bottom:9px}
-select,.star-input{
- width:100%;padding:13px;border:2px solid #3c4b69;border-radius:11px;
- background:#192337;color:white;font-size:12px;font-weight:700;transition:.2s
+select{
+ width:100%;padding:12px;border:1px solid #35425d;
+ border-radius:10px;background:#192337;color:white;font-size:11px;font-weight:700
 }
-select:focus,.star-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px #9467ff25;outline:none}
 .amounts{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
-.amount{padding:11px 0;border:2px solid #35435d;border-radius:9px;background:#192337;color:#b9c5d9;font-size:12px;font-weight:900;transition:.2s}
-.amount:hover{border-color:var(--accent);box-shadow:0 0 10px #9467ff44}
-.amount.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;border-color:#c4aaff;box-shadow:0 0 0 2px #9467ff33,0 0 15px #9467ff55}
+.amount{
+ padding:11px 0;border:1px solid #303d55;border-radius:9px;
+ background:#192337;color:#b9c5d9;font-size:12px;font-weight:900;transition:.2s
+}
+.amount:hover{border-color:var(--accent)}
+.amount.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;border-color:#b59aff}
 .quick-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}
 .secondary-button{
- border:2px solid #3b4a67;background:linear-gradient(145deg,#202d45,#172236);
- color:#d1daeb;border-radius:10px;padding:11px 7px;font-size:9px;font-weight:900;transition:.2s
+ border:1px solid #37435b;background:#1a2437;color:#d1daeb;
+ border-radius:9px;padding:10px 7px;font-size:9px;font-weight:900;transition:.2s
 }
-.secondary-button:hover{border-color:var(--accent);background:#252e45;transform:translateY(-1px);box-shadow:0 0 12px #9467ff33}
-.star-box{padding:15px;border:2px solid #66518e;background:linear-gradient(145deg,#211b3b,#151d30);border-radius:15px;box-shadow:0 0 0 3px #9467ff12}
-.star-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}
-.star-heading strong{font-size:11px;letter-spacing:.8px}
-.star-heading span{font-size:20px}
-.star-fields{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.star-field label{display:block;font-size:8px;color:#c0adf2;font-weight:900;letter-spacing:.8px;margin-bottom:7px}
-.star-input{padding:12px 9px;background:#11182a;border-color:#574575;font-size:12px}
-.star-input::placeholder{color:#78849d}
-.star-info{font-size:9px;line-height:1.7;color:#a9b2c7;margin-top:10px}
-.star-validation{font-size:9px;font-weight:800;margin-top:8px;min-height:14px}
-.star-validation.good{color:var(--green)}
-.star-validation.bad{color:var(--red)}
+.secondary-button:hover{border-color:var(--accent);background:#252e45}
 .main-panel{padding:21px}
 .game-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .game-head h2{font-size:15px;font-weight:900;margin:0}
 .game-head p{font-size:10px;color:var(--muted);margin:6px 0 0}
-.dice-stage{
- margin-top:20px;min-height:250px;padding:25px 13px;display:flex;
- align-items:center;justify-content:center;flex-wrap:wrap;gap:13px;
- border:2px solid #3b4b6b;border-radius:17px;overflow:hidden;position:relative;
- background:radial-gradient(ellipse at center,#6849a43b,transparent 70%),linear-gradient(135deg,#141d30,#0c1220);
- box-shadow:inset 0 0 30px #0005,0 0 0 3px #ffffff08
+.fair-tag{
+ padding:8px 10px;border:1px solid #28634e;background:#112d24;
+ color:#75e9ba;border-radius:30px;font-size:9px;font-weight:900;white-space:nowrap
 }
-.dice-stage:before{content:"";position:absolute;width:280px;height:280px;border:2px solid #ffffff0c;border-radius:50%;pointer-events:none}
-.dice{width:78px;height:78px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(145deg,#35415d,#161e30);border:2px solid #71809e;box-shadow:0 10px 25px #0007,inset 0 2px 6px #ffffff1a,0 0 0 3px #ffffff0b;position:relative;z-index:1}
+.dice-stage{
+ margin-top:20px;min-height:250px;padding:25px 13px;
+ display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:13px;
+ border:1px solid #293750;border-radius:17px;overflow:hidden;position:relative;
+ background:radial-gradient(ellipse at center,#6849a42b,transparent 70%),linear-gradient(135deg,#141d30,#0c1220)
+}
+.dice-stage:before{
+ content:"";position:absolute;width:280px;height:280px;border:1px solid #ffffff09;
+ border-radius:50%;pointer-events:none
+}
+.dice{
+ width:78px;height:78px;border-radius:18px;display:grid;place-items:center;
+ background:linear-gradient(145deg,#35415d,#161e30);
+ border:1px solid #53617c;box-shadow:0 10px 25px #0007,inset 0 2px 6px #ffffff1a;
+ position:relative;z-index:1
+}
 .dice-face{font-size:36px;color:white;text-shadow:0 2px 8px #0008}
-.dice.unknown{background:linear-gradient(145deg,#3a2b68,#191d36);border-color:#a88aff;box-shadow:0 0 0 3px #9467ff22,0 0 20px #9467ff33}
+.dice.unknown{background:linear-gradient(145deg,#3a2b68,#191d36);border-color:#9476e8}
 .dice.unknown .dice-face{color:#c5aaff}
 .dice.flicker{animation:flicker .12s infinite alternate}
 .dice.drop{animation:drop .7s cubic-bezier(.15,.8,.2,1) both}
 .dice.impact{animation:impact .3s ease-out}
-@keyframes flicker{from{transform:translateY(-4px) rotate(-5deg);filter:brightness(1.5)}to{transform:translateY(4px) rotate(5deg);filter:brightness(.7)}}
-@keyframes drop{0%{transform:translateY(-210px) rotate(-160deg);opacity:0}65%{transform:translateY(9px) rotate(20deg);opacity:1}85%{transform:translateY(-5px) rotate(-5deg)}100%{transform:translateY(0) rotate(0)}}
+@keyframes flicker{
+ from{transform:translateY(-4px) rotate(-5deg);filter:brightness(1.5)}
+ to{transform:translateY(4px) rotate(5deg);filter:brightness(.7)}
+}
+@keyframes drop{
+ 0%{transform:translateY(-210px) rotate(-160deg);opacity:0}
+ 65%{transform:translateY(9px) rotate(20deg);opacity:1}
+ 85%{transform:translateY(-5px) rotate(-5deg)}
+ 100%{transform:translateY(0) rotate(0)}
+}
 @keyframes impact{0%{transform:scale(1.2)}50%{transform:scale(.9)}100%{transform:scale(1)}}
 .roll-btn{
- width:100%;margin-top:16px;padding:19px;border:2px solid #c1aaff;border-radius:13px;
+ width:100%;margin-top:16px;padding:18px;border:0;border-radius:12px;
  color:white;background:linear-gradient(100deg,var(--accent),var(--accent2));
  font-size:12px;font-weight:900;letter-spacing:2px;
- box-shadow:0 0 0 3px #9467ff22,0 9px 27px #6849dc55;transition:.2s
+ box-shadow:0 9px 27px #6849dc55;transition:.2s
 }
-.roll-btn:hover{transform:translateY(-2px);filter:brightness(1.12);box-shadow:0 0 0 4px #9467ff30,0 12px 32px #6849dc77}
+.roll-btn:hover{transform:translateY(-2px);filter:brightness(1.12)}
 .roll-btn:active{transform:scale(.99)}
 .roll-btn:disabled{opacity:.55;cursor:wait;transform:none}
-.result{display:none;margin-top:15px;padding:18px;border-radius:14px;text-align:center;background:#151e2f;border:2px solid var(--line)}
+.result{
+ display:none;margin-top:15px;padding:17px;border-radius:13px;
+ text-align:center;background:#151e2f;border:1px solid var(--line)
+}
 .result.show{display:block;animation:appear .35s ease}
-.result.win{background:#112e25;border-color:#29dfa3;box-shadow:0 0 0 3px #29dfa322,0 0 25px #29dfa322}
-.result.loss{background:#301824;border-color:#ff5c79;box-shadow:0 0 0 3px #ff5c7922,0 0 25px #ff5c7922}
-.result-title{font-size:25px;font-weight:900;letter-spacing:1px}
+.result.win{background:#112e25;border-color:#277b58}
+.result.loss{background:#301824;border-color:#74394b}
+.result-title{font-size:23px;font-weight:900;letter-spacing:1px}
 .result.win .result-title{color:var(--green)}
 .result.loss .result-title{color:var(--red)}
 .result-detail{font-size:10px;color:#bdc9db;line-height:1.8;margin-top:7px}
 .result-actions{display:flex;justify-content:center;gap:8px;margin-top:12px}
 @keyframes appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:14px}
-.stat{background:linear-gradient(145deg,#19243a,#131b2a);border:2px solid #34425d;border-radius:12px;padding:13px;box-shadow:inset 0 1px #ffffff0a}
+.stat{background:#151e2e;border:1px solid #293750;border-radius:11px;padding:12px}
 .stat small{font-size:8px;color:var(--muted);font-weight:900;letter-spacing:.7px}
 .stat strong{display:block;font-size:21px;margin-top:7px}
 .green{color:var(--green)}.red{color:var(--red)}
 .bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:17px}
-.probability-value{font-size:38px;font-weight:900;color:#b69aff;margin:9px 0}
-.probability-bar{height:12px;background:#29354b;border:1px solid #53617b;border-radius:20px;overflow:hidden}
-.probability-fill{height:100%;width:50%;background:linear-gradient(90deg,var(--green),#38c4ff);border-radius:20px;transition:width .4s}
+.probability-value{font-size:34px;font-weight:900;color:#b69aff;margin:9px 0}
+.probability-bar{height:9px;background:#29354b;border-radius:20px;overflow:hidden}
+.probability-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),#38c4ff);border-radius:20px;transition:width .4s}
 .probability-note{font-size:9px;color:var(--muted);line-height:1.8;margin-top:11px}
-.rule-list{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.rule{text-align:center;padding:14px 5px;border-radius:10px;background:#1a2538;border:2px solid #303e56}
-.rule b{display:block;font-size:17px}
-.rule small{display:block;font-size:9px;font-weight:900;margin-top:5px}
-.rule.win{background:#112e25;border-color:#29dfa3}
+.rule-list{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.rule{text-align:center;padding:10px 2px;border-radius:8px;background:#1a2538;border:1px solid #303e56}
+.rule b{display:block;font-size:15px}
+.rule small{display:block;font-size:7px;color:var(--muted);margin-top:5px}
+.rule.win{background:#112e25;border-color:#276449}
 .rule.win small{color:#70e4b6}
-.rule.loss{background:#301824;border-color:#ff5c79}
-.rule.loss small{color:#ff8da0}
 .history{margin-top:17px}
 .history-header{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .history-list{display:flex;flex-direction:column;gap:7px}
-.history-row{display:flex;align-items:center;justify-content:space-between;gap:9px;background:#182337;border:2px solid #34425d;border-radius:10px;padding:10px;font-size:9px;color:#c7d1e3}
+.history-row{
+ display:flex;align-items:center;justify-content:space-between;gap:9px;
+ background:#182337;border:1px solid #2a3850;border-radius:10px;
+ padding:10px;font-size:9px;color:#c7d1e3
+}
 .history-left{min-width:0}
 .history-dice{display:flex;gap:4px;flex-shrink:0}
-.mini-die{width:17px;height:17px;border-radius:5px;border:1px solid #ffffff70}
+.mini-die{width:17px;height:17px;border-radius:5px;border:1px solid #ffffff30}
 .history-outcome{font-weight:900;white-space:nowrap}
 .history-outcome.win{color:var(--green)}
 .history-outcome.loss{color:var(--red)}
 .empty{text-align:center;color:var(--muted);font-size:10px;padding:18px}
 .settings{margin-top:17px}
 .settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:17px}
-.setting{padding:14px;border:2px solid #34425d;background:#151e2e;border-radius:13px}
+.setting{padding:13px;border:1px solid #293750;background:#151e2e;border-radius:12px}
 .setting-top{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:10px;font-weight:800}
 .setting input[type=range]{width:100%;margin-top:14px;accent-color:var(--accent)}
-.toggle{width:39px;height:22px;border:2px solid #68748c;border-radius:20px;background:#39445a;position:relative;transition:.2s;flex-shrink:0}
-.toggle:after{content:"";position:absolute;left:2px;top:2px;width:14px;height:14px;border-radius:50%;background:white;transition:.2s}
-.toggle.on{background:var(--accent);border-color:#c1aaff}
-.toggle.on:after{left:17px}
+.toggle{
+ width:39px;height:22px;border:0;border-radius:20px;background:#39445a;
+ position:relative;transition:.2s;flex-shrink:0
+}
+.toggle:after{
+ content:"";position:absolute;left:3px;top:3px;width:16px;height:16px;
+ border-radius:50%;background:white;transition:.2s
+}
+.toggle.on{background:var(--accent)}
+.toggle.on:after{left:20px}
 .theme-select{display:flex;gap:8px;margin-top:12px}
-.theme-dot{width:29px;height:29px;border:2px solid #ffffff55;border-radius:9px;transition:.2s}
+.theme-dot{width:27px;height:27px;border:2px solid #ffffff22;border-radius:9px;transition:.2s}
 .theme-dot.active{outline:2px solid white;outline-offset:2px}
-.footer{text-align:center;color:#71809b;font-size:9px;line-height:2;margin-top:23px}
-.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#202b40;border:2px solid #657493;border-radius:12px;padding:12px 17px;color:white;font-size:11px;font-weight:800;transition:.25s;z-index:10;max-width:90%;text-align:center}
+.footer{text-align:center;color:#62708a;font-size:9px;line-height:2;margin-top:23px}
+.toast{
+ position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);
+ opacity:0;pointer-events:none;background:#202b40;border:1px solid #52617c;
+ border-radius:12px;padding:12px 17px;color:white;font-size:11px;font-weight:800;
+ transition:.25s;z-index:10
+}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 @media(max-width:900px){.layout{grid-template-columns:1fr}}
 @media(max-width:600px){
- .app{padding:15px 11px 30px}.logo h1{font-size:18px}.logo-icon{width:44px;height:44px}
- .status{font-size:8px;padding:8px}.icon-button{width:36px;height:36px}
- .hero{padding:19px;align-items:flex-start}.hero h2{font-size:22px}.hero-badge{display:none}
- .panel{padding:14px}.main-panel{padding:14px}.dice{width:59px;height:59px;border-radius:14px}
- .dice-face{font-size:28px}.dice-stage{min-height:190px;gap:9px}
- .stats{grid-template-columns:repeat(2,1fr)}.bottom-grid{grid-template-columns:1fr}
- .settings-grid{grid-template-columns:1fr}.history-row{flex-wrap:wrap}
- .star-fields{gap:7px}.star-input{font-size:11px;padding:11px 7px}
+ .app{padding:15px 11px 30px}
+ .logo h1{font-size:18px}
+ .logo-icon{width:44px;height:44px}
+ .status{font-size:8px;padding:8px}
+ .icon-button{width:36px;height:36px}
+ .hero{padding:19px;align-items:flex-start}
+ .hero h2{font-size:22px}
+ .hero-badge{display:none}
+ .panel{padding:14px}
+ .main-panel{padding:14px}
+ .dice{width:59px;height:59px;border-radius:14px}
+ .dice-face{font-size:28px}
+ .dice-stage{min-height:190px;gap:9px}
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .bottom-grid{grid-template-columns:1fr}
+ .settings-grid{grid-template-columns:1fr}
+ .history-row{flex-wrap:wrap}
 }
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
 </style>
 </head>
+
 <body>
 <div class="app">
+
 <header>
  <div class="logo">
   <div class="logo-icon">🎲</div>
-  <div><h1>COLOR DICE</h1><small>ULTRA EDITION · V5.0</small></div>
+  <div>
+   <h1>COLOR DICE</h1>
+   <small>ULTRA EDITION · V3.0</small>
+  </div>
  </div>
  <div class="header-actions">
-  <div class="status"><span class="dot"></span> 50/50 FAIR</div>
+  <div class="status"><span class="dot"></span> FAIR RANDOM</div>
+  <button class="secondary-button" id="loginBtn" style="padding:10px 14px;">ВОЙТИ</button>
+  <button class="roll-btn" id="registerBtn" style="padding:10px 14px; margin:0; width:auto; font-size:9px; letter-spacing:1px;">РЕГИСТРАЦИЯ</button>
   <button class="icon-button" id="musicButton" title="Музыка">♫</button>
   <button class="icon-button" id="settingsButton" title="Настройки">⚙</button>
  </div>
@@ -222,59 +288,60 @@ select:focus,.star-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px #
  <div>
   <div class="hero-label">WELCOME TO THE ULTIMATE GAME</div>
   <h2>Испытай свою удачу.</h2>
-  <p>Честный случайный результат. Ровно 50% на победу и 50% на проигрыш.</p>
+  <p>Новая атмосфера. Новые звуки. Те же честные и равные шансы.</p>
  </div>
- <div class="hero-badge">✦ COLOR DICE V5</div>
+ <div class="hero-badge">✦ COLOR DICE V3</div>
 </section>
 
 <div class="layout">
 <aside class="panel">
+
  <div class="section-title">ДОСТУПНЫЕ ЦВЕТА <span id="colorCounter">8 / 8</span></div>
  <div class="color-list" id="colorList"></div>
- <p class="hint">Выбери минимум 2 цвета. Каждый активный цвет имеет одинаковый шанс выпадения.</p>
+ <p class="hint">Выбери минимум 2 цвета. Вероятность каждого активного цвета одинакова.</p>
+
  <div class="quick-buttons">
   <button class="secondary-button" id="allColors">✓ ВСЕ ЦВЕТА</button>
   <button class="secondary-button" id="randomColors">✦ СЛУЧАЙНЫЕ 4</button>
  </div>
+
  <div class="divider"></div>
+
  <div class="field-label">ТВОЙ ПРОГНОЗ</div>
  <select id="targetSelect"></select>
- <div class="quick-buttons"><button class="secondary-button" id="randomTarget">🎯 СЛУЧАЙНЫЙ ПРОГНОЗ</button></div>
+ <div class="quick-buttons">
+  <button class="secondary-button" id="randomTarget">🎯 СЛУЧАЙНЫЙ ПРОГНОЗ</button>
+ </div>
+
  <div class="divider"></div>
+
  <div class="field-label">КОЛИЧЕСТВО КУБИКОВ</div>
  <div class="amounts" id="amounts"></div>
+
  <p class="hint">Клавиша SPACE — бросить кубики.</p>
- <div class="divider"></div>
- <div class="star-box">
-  <div class="star-heading"><strong>⭐ ДИАПАЗОН ЗВЁЗД</strong><span>✦</span></div>
-  <div class="star-fields">
-   <div class="star-field">
-    <label for="minStars">МИНИМУМ ЗВЁЗД</label>
-    <input class="star-input" id="minStars" type="text" value="1" placeholder="Например 1B" autocomplete="off" spellcheck="false">
-   </div>
-   <div class="star-field">
-    <label for="maxStars">МАКСИМУМ ЗВЁЗД</label>
-    <input class="star-input" id="maxStars" type="text" value="5QA" placeholder="Например 5QA" autocomplete="off" spellcheck="false">
-   </div>
-  </div>
-  <div class="star-info">K — тысяча, M — миллион, B — миллиард, T — триллион, QA — квадриллион, QI — квинтиллион. Поля не влияют на броски.</div>
-  <div class="star-validation good" id="starValidation">✓ Диапазон звёзд корректен</div>
- </div>
 </aside>
 
 <main>
  <section class="panel main-panel">
   <div class="game-head">
-   <div><h2>🎲 БРОСОК КУБИКОВ</h2><p>Победа и проигрыш определяются независимым броском 50/50.</p></div>
-   <div class="fair-tag">50% / 50%</div>
+   <div>
+    <h2>🎲 БРОСОК КУБИКОВ</h2>
+    <p>Результат генерируется до начала анимации.</p>
+   </div>
+   <div class="fair-tag">100% FAIR</div>
   </div>
+
   <div class="dice-stage" id="diceStage"></div>
   <button class="roll-btn" id="rollBtn">🎲 БРОСИТЬ КУБИКИ</button>
+
   <div class="result" id="result">
    <div class="result-title" id="resultTitle"></div>
    <div class="result-detail" id="resultDetail"></div>
-   <div class="result-actions"><button class="secondary-button" id="copyResult">📋 КОПИРОВАТЬ РЕЗУЛЬТАТ</button></div>
+   <div class="result-actions">
+    <button class="secondary-button" id="copyResult">📋 КОПИРОВАТЬ РЕЗУЛЬТАТ</button>
+   </div>
   </div>
+
   <div class="stats">
    <div class="stat"><small>ПОБЕДЫ</small><strong class="green" id="wins">0</strong></div>
    <div class="stat"><small>ПОРАЖЕНИЯ</small><strong class="red" id="losses">0</strong></div>
@@ -285,18 +352,16 @@ select:focus,.star-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px #
 
  <div class="bottom-grid">
   <section class="panel">
-   <div class="section-title">РЕАЛЬНЫЕ ШАНСЫ <span>FAIR COIN FLIP</span></div>
-   <div class="probability-value">50.00%</div>
-   <div class="probability-bar"><div class="probability-fill"></div></div>
-   <div class="probability-note">Вероятность победы при каждом броске — ровно 50%. Вероятность проигрыша — ровно 50%. Каждый результат независим от предыдущих.</div>
+   <div class="section-title">ТВОИ ШАНСЫ <span>LIVE MATH</span></div>
+   <div class="probability-value" id="winChance">0.00%</div>
+   <div class="probability-bar"><div class="probability-fill" id="chanceFill"></div></div>
+   <div class="probability-note" id="chanceNote"></div>
   </section>
+
   <section class="panel">
-   <div class="section-title">ПРАВИЛА ИГРЫ <span>50 / 50</span></div>
-   <div class="rule-list">
-    <div class="rule win"><b>50%</b><small>ПОБЕДА</small></div>
-    <div class="rule loss"><b>50%</b><small>ПРОИГРЫШ</small></div>
-   </div>
-   <p class="hint">Количество совпадений цветов показывается отдельно и не влияет на результат.</p>
+   <div class="section-title">ПРАВИЛА ПОБЕДЫ <span>GAME RULES</span></div>
+   <div class="rule-list" id="ruleList"></div>
+   <p class="hint">Победа: 1, 3, 5 или 6 совпадений. Остальные результаты — проигрыш.</p>
   </section>
  </div>
 </main>
@@ -341,119 +406,92 @@ select:focus,.star-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px #
 </section>
 
 <div class="footer">
- COLOR DICE · ULTRA EDITION V5.0<br>
- FAIR RANDOM GENERATOR · INDEPENDENT 50/50 RESULT<br>
+ COLOR DICE · ULTRA EDITION V3.0<br>
+ FAIR RANDOM GENERATOR · EVERY ROLL IS INDEPENDENT<br>
  Музыка создаётся процедурно и не использует сторонние треки.
 </div>
 </div>
+
 <div class="toast" id="toast"></div>
 
 <script>
 "use strict";
 
 const COLORS=[
-{name:"Красный",short:"Красный",hex:"#ef4444"},
-{name:"Оранжевый",short:"Оранж.",hex:"#f97316"},
-{name:"Жёлтый",short:"Жёлтый",hex:"#facc15"},
-{name:"Зелёный",short:"Зелёный",hex:"#22c55e"},
-{name:"Голубой",short:"Голубой",hex:"#38bdf8"},
-{name:"Синий",short:"Синий",hex:"#3b82f6"},
-{name:"Индиго",short:"Индиго",hex:"#6366f1"},
-{name:"Фиолетовый",short:"Фиолет.",hex:"#a855f7"}
+ {name:"Красный",short:"Красный",hex:"#ef4444"},
+ {name:"Оранжевый",short:"Оранж.",hex:"#f97316"},
+ {name:"Жёлтый",short:"Жёлтый",hex:"#facc15"},
+ {name:"Зелёный",short:"Зелёный",hex:"#22c55e"},
+ {name:"Голубой",short:"Голубой",hex:"#38bdf8"},
+ {name:"Синий",short:"Синий",hex:"#3b82f6"},
+ {name:"Индиго",short:"Индиго",hex:"#6366f1"},
+ {name:"Фиолетовый",short:"Фиолет.",hex:"#a855f7"}
 ];
 
+const WIN_COUNTS=new Set([1,3,5,6]);
 const $=id=>document.getElementById(id);
-const THEMES={
-purple:["#9467ff","#478cff"],
-green:["#16b981","#0ea5e9"],
-sunset:["#f97316","#ec4899"],
-ice:["#22d3ee","#6366f1"]
-};
 
 let enabled=new Set(COLORS.map(c=>c.name));
-let targetColor="Красный",amount=3,busy=false;
-let wins=0,losses=0,total=0,streak=0,bestStreak=0;
-let history=[],lastResultText="";
-let musicEnabled=true,sfxEnabled=true,musicVolume=.22,sfxVolume=.55;
-let audio=null,musicTimer=null,lastToastTimer;
+let targetColor="Красный";
+let amount=3;
+let busy=false;
+let wins=0,losses=0,total=0;
+let streak=0,bestStreak=0;
+let history=[];
+let lastResultText="";
+let musicEnabled=true,sfxEnabled=true;
+let musicVolume=.22,sfxVolume=.55;
+let audio=null,musicTimer=null;
+let lastToastTimer;
+
+const THEMES={
+ purple:["#9467ff","#478cff"],
+ green:["#16b981","#0ea5e9"],
+ sunset:["#f97316","#ec4899"],
+ ice:["#22d3ee","#6366f1"]
+};
 
 function secureRandomIndex(max){
  if(!Number.isInteger(max)||max<1)throw Error("Invalid range");
- const range=4294967296,limit=Math.floor(range/max)*max;
+ const range=4294967296;
+ const limit=Math.floor(range/max)*max;
  const data=new Uint32Array(1);
  do{crypto.getRandomValues(data)}while(data[0]>=limit);
  return data[0]%max;
 }
 
-function randomItem(array){return array[secureRandomIndex(array.length)]}
-function getAvailable(){return COLORS.filter(c=>enabled.has(c.name))}
-
-function fairCoinFlip(){
- const data=new Uint32Array(1);
- crypto.getRandomValues(data);
- return (data[0]&1)===1;
+function randomItem(array){
+ return array[secureRandomIndex(array.length)];
 }
 
-function parseStarNumber(value){
- const input=String(value).trim().toUpperCase().replace(/,/g,".");
- const match=input.match(/^(\d+(?:\.\d+)?|\.\d+)\s*(K|M|B|T|QA|QI)?$/);
- if(!match)return null;
- const powers={K:3,M:6,B:9,T:12,QA:15,QI:18};
- const suffix=match[2]||"";
- const power=powers[suffix]||0;
- const parts=match[1].split(".");
- const integer=parts[0]||"0";
- const fraction=parts[1]||"";
- const digits=(integer+fraction).replace(/^0+(?=\d)/,"");
- const exponent=power-fraction.length;
- if(exponent>=0)return {value:BigInt((digits||"0")+"0".repeat(exponent))};
- const cut=-exponent;
- const whole=digits.length>cut?digits.slice(0,digits.length-cut):"0";
- const decimal=digits.length>cut?digits.slice(digits.length-cut):"0".repeat(cut-digits.length)+digits;
- return {whole:BigInt(whole||"0"),decimal:decimal.replace(/0+$/,"")};
+function getAvailable(){
+ return COLORS.filter(c=>enabled.has(c.name));
 }
 
-function compareStarNumbers(a,b){
- const av=a.whole!==undefined?a.whole:a.value;
- const bv=b.whole!==undefined?b.whole:b.value;
- if(av<bv)return -1;
- if(av>bv)return 1;
- const ad=a.decimal||"",bd=b.decimal||"";
- const length=Math.max(ad.length,bd.length);
- const aa=ad.padEnd(length,"0"),bb=bd.padEnd(length,"0");
- return aa<bb?-1:aa>bb?1:0;
-}
-
-function validateStars(showToast=false){
- const min=parseStarNumber($("minStars").value);
- const max=parseStarNumber($("maxStars").value);
- const status=$("starValidation");
- let valid=true,message="✓ Диапазон звёзд корректен";
- if(!min||!max){valid=false;message="Введите корректные числа";}
- else if(compareStarNumbers(min,{value:1n})<0||compareStarNumbers(max,{value:1n})<0){valid=false;message="Минимальное значение — 1";}
- else if(compareStarNumbers(max,min)<0){valid=false;message="Максимум не может быть меньше минимума";}
- status.textContent=message;
- status.className="star-validation "+(valid?"good":"bad");
- $("minStars").style.borderColor=valid?"#574575":"var(--red)";
- $("maxStars").style.borderColor=valid?"#574575":"var(--red)";
- if(showToast&&!valid)toast(message);
- save();
- return valid;
+function probability(n,m){
+ const p=1/m,q=1-p;
+ let result=0;
+ for(let k=0;k<=n;k++){
+  if(!WIN_COUNTS.has(k))continue;
+  let combination=1;
+  for(let i=1;i<=k;i++)combination=combination*(n-i+1)/i;
+  result+=combination*Math.pow(p,k)*Math.pow(q,n-k);
+ }
+ return result;
 }
 
 function save(){
  try{
-  localStorage.setItem("colorDiceUltraV5",JSON.stringify({
+  localStorage.setItem("colorDiceUltraV3",JSON.stringify({
    wins,losses,total,streak,bestStreak,history,
-   theme:document.body.dataset.theme||"purple",
-   minStars:$("minStars").value,maxStars:$("maxStars").value
+   theme:document.body.dataset.theme||"purple"
   }));
  }catch(e){}
 }
 
 function load(){
  try{
-  const data=JSON.parse(localStorage.getItem("colorDiceUltraV5")||"null");
+  const data=JSON.parse(localStorage.getItem("colorDiceUltraV3")||"null");
   if(!data)return;
   wins=Number(data.wins)||0;
   losses=Number(data.losses)||0;
@@ -462,8 +500,6 @@ function load(){
   bestStreak=Number(data.bestStreak)||0;
   history=Array.isArray(data.history)?data.history.slice(0,10):[];
   if(THEMES[data.theme])applyTheme(data.theme,false);
-  if(typeof data.minStars==="string")$("minStars").value=data.minStars;
-  if(typeof data.maxStars==="string")$("maxStars").value=data.maxStars;
  }catch(e){}
 }
 
@@ -471,7 +507,7 @@ function updateStats(){
  $("wins").textContent=wins;
  $("losses").textContent=losses;
  $("streak").textContent=streak+" 🔥";
- $("winRate").textContent=(total?wins/total*100:0).toFixed(1)+"%";
+ $("winRate").textContent=(total?(wins/total*100):0).toFixed(1)+"%";
 }
 
 function toast(message){
@@ -495,22 +531,45 @@ function audioContext(){
 function tone(frequency,duration=.12,type="sine",volume=1,when=0){
  const ctx=audioContext();
  if(!ctx||!sfxEnabled||sfxVolume<=0)return;
- const osc=ctx.createOscillator(),gain=ctx.createGain();
+ const osc=ctx.createOscillator();
+ const gain=ctx.createGain();
  const now=ctx.currentTime+when;
  osc.type=type;
  osc.frequency.setValueAtTime(frequency,now);
  gain.gain.setValueAtTime(Math.max(.0001,sfxVolume*volume),now);
  gain.gain.exponentialRampToValueAtTime(.0001,now+duration);
- osc.connect(gain);gain.connect(ctx.destination);
- osc.start(now);osc.stop(now+duration+.02);
+ osc.connect(gain);
+ gain.connect(ctx.destination);
+ osc.start(now);
+ osc.stop(now+duration+.02);
 }
 
-function playClick(){tone(550,.055,"sine",.24);tone(820,.045,"sine",.12,.035)}
-function playSelect(){tone(480,.07,"sine",.25);tone(690,.09,"sine",.18,.06)}
-function playRoll(){[240,330,440,560].forEach((f,i)=>tone(f,.06,"triangle",.28,i*.055))}
-function playLand(){tone(110,.18,"triangle",.7);tone(180,.12,"sine",.35,.035)}
-function playWin(){[523,659,784,1046].forEach((f,i)=>tone(f,.3,"sine",.45,i*.1))}
-function playLoss(){[330,277,220].forEach((f,i)=>tone(f,.25,"triangle",.4,i*.12))}
+function playClick(){
+ tone(550,.055,"sine",.24);
+ tone(820,.045,"sine",.12,.035);
+}
+
+function playSelect(){
+ tone(480,.07,"sine",.25);
+ tone(690,.09,"sine",.18,.06);
+}
+
+function playRoll(){
+ [240,330,440,560].forEach((f,i)=>tone(f,.06,"triangle",.28,i*.055));
+}
+
+function playLand(){
+ tone(110,.18,"triangle",.7);
+ tone(180,.12,"sine",.35,.035);
+}
+
+function playWin(){
+ [523,659,784,1046].forEach((f,i)=>tone(f,.3,"sine",.45,i*.1));
+}
+
+function playLoss(){
+ [330,277,220].forEach((f,i)=>tone(f,.25,"triangle",.4,i*.12));
+}
 
 function startMusic(){
  const ctx=audioContext();
@@ -521,16 +580,22 @@ function startMusic(){
  const notes=[261.63,329.63,392,493.88,392,329.63,293.66,349.23];
  const bass=[130.81,164.81,196,146.83];
  let step=0;
+
  function musicNote(freq,duration,delay,volume,type){
   const now=ctx.currentTime+delay;
-  const osc=ctx.createOscillator(),gain=ctx.createGain();
-  osc.type=type;osc.frequency.setValueAtTime(freq,now);
+  const osc=ctx.createOscillator();
+  const gain=ctx.createGain();
+  osc.type=type;
+  osc.frequency.setValueAtTime(freq,now);
   gain.gain.setValueAtTime(.0001,now);
   gain.gain.linearRampToValueAtTime(volume,now+.035);
   gain.gain.exponentialRampToValueAtTime(.0001,now+duration);
-  osc.connect(gain);gain.connect(master);
-  osc.start(now);osc.stop(now+duration+.02);
+  osc.connect(gain);
+  gain.connect(master);
+  osc.start(now);
+  osc.stop(now+duration+.02);
  }
+
  function tick(){
   if(!musicEnabled||!audio||audio.state!=="running")return;
   const note=notes[step%notes.length];
@@ -539,20 +604,25 @@ function startMusic(){
   if(step%4===0)musicNote(bass[Math.floor(step/4)%bass.length],.65,0,.28,"triangle");
   step++;
  }
+
  tick();
  musicTimer=setInterval(tick,380);
  master.gain.setTargetAtTime(musicVolume*.24,ctx.currentTime,.1);
 }
 
 function stopMusic(){
- if(musicTimer){clearInterval(musicTimer);musicTimer=null}
+ if(musicTimer){
+  clearInterval(musicTimer);
+  musicTimer=null;
+ }
 }
 
 function setMusic(value){
  musicEnabled=value;
  $("musicToggle").classList.toggle("on",value);
  $("musicButton").textContent=value?"♫":"♪";
- if(value)startMusic();else stopMusic();
+ if(value)startMusic();
+ else stopMusic();
 }
 
 function renderColors(){
@@ -563,17 +633,27 @@ function renderColors(){
   const button=document.createElement("button");
   button.className="color-option"+(active?" active":"");
   const dot=document.createElement("span");
-  dot.className="color-dot";dot.style.background=color.hex;
-  const name=document.createElement("span");name.textContent=color.short;
+  dot.className="color-dot";
+  dot.style.background=color.hex;
+  const name=document.createElement("span");
+  name.textContent=color.short;
   const check=document.createElement("span");
-  check.className="check";check.textContent=active?"✓":"";
+  check.className="check";
+  check.textContent=active?"✓":"";
   button.append(dot,name,check);
   button.onclick=()=>{
    if(busy)return;
-   if(active&&enabled.size<=2){toast("Нужно оставить минимум 2 цвета");return}
-   if(active)enabled.delete(color.name);else enabled.add(color.name);
+   if(active&&enabled.size<=2){
+    toast("Нужно оставить минимум 2 цвета");
+    return;
+   }
+   if(active)enabled.delete(color.name);
+   else enabled.add(color.name);
    if(!enabled.has(targetColor))targetColor=getAvailable()[0].name;
-   renderColors();renderTarget();playSelect();
+   renderColors();
+   renderTarget();
+   updateProbability();
+   playSelect();
   };
   list.appendChild(button);
  });
@@ -585,60 +665,106 @@ function renderTarget(){
  select.innerHTML="";
  getAvailable().forEach(color=>{
   const option=document.createElement("option");
-  option.value=color.name;option.textContent=color.name;
+  option.value=color.name;
+  option.textContent=color.name;
   select.appendChild(option);
  });
  select.value=targetColor;
 }
 
 function renderAmounts(){
- const box=$("amounts");box.innerHTML="";
+ const box=$("amounts");
+ box.innerHTML="";
  for(let i=1;i<=6;i++){
   const button=document.createElement("button");
   button.className="amount"+(amount===i?" active":"");
   button.textContent=i;
   button.onclick=()=>{
    if(busy)return;
-   amount=i;renderAmounts();renderDice();
-   $("result").className="result";playSelect();
+   amount=i;
+   renderAmounts();
+   renderDice();
+   updateProbability();
+   $("result").className="result";
+   playSelect();
   };
   box.appendChild(button);
  }
 }
 
 function renderDice(){
- const stage=$("diceStage");stage.innerHTML="";
+ const stage=$("diceStage");
+ stage.innerHTML="";
  for(let i=0;i<amount;i++){
   const die=document.createElement("div");
   die.className="dice unknown";
   const face=document.createElement("div");
-  face.className="dice-face";face.textContent="?";
-  die.appendChild(face);stage.appendChild(die);
+  face.className="dice-face";
+  face.textContent="?";
+  die.appendChild(face);
+  stage.appendChild(die);
+ }
+}
+
+function updateProbability(){
+ const chance=probability(amount,enabled.size);
+ const percent=chance*100;
+ $("winChance").textContent=percent.toFixed(2)+"%";
+ $("chanceFill").style.width=Math.min(100,percent)+"%";
+ $("chanceNote").textContent=
+  `Кубиков: ${amount}. Активных цветов: ${enabled.size}. `+
+  `Шанс выбранного цвета на одном кубике: ${(100/enabled.size).toFixed(2)}%. `+
+  `Расчёт учитывает все возможные комбинации.`;
+
+ const box=$("ruleList");
+ box.innerHTML="";
+ for(let i=1;i<=6;i++){
+  const item=document.createElement("div");
+  const possible=i<=amount;
+  item.className="rule"+(WIN_COUNTS.has(i)?" win":"");
+  const b=document.createElement("b");
+  b.textContent=i;
+  const small=document.createElement("small");
+  small.textContent=!possible?"—":WIN_COUNTS.has(i)?"ПОБЕДА":"ПРОИГРЫШ";
+  item.append(b,small);
+  if(!possible)item.style.opacity=".3";
+  box.appendChild(item);
  }
 }
 
 function renderHistory(){
- const box=$("historyList");box.innerHTML="";
+ const box=$("historyList");
+ box.innerHTML="";
  $("historyCount").textContent=history.length+" записей";
- if(!history.length){box.innerHTML='<div class="empty">Пока нет бросков.</div>';return}
+ if(!history.length){
+  box.innerHTML='<div class="empty">Пока нет бросков.</div>';
+  return;
+ }
  history.forEach(item=>{
-  const row=document.createElement("div");row.className="history-row";
-  const left=document.createElement("span");left.className="history-left";
+  const row=document.createElement("div");
+  row.className="history-row";
+  const left=document.createElement("span");
+  left.className="history-left";
   left.textContent=`#${item.number} · ${item.target} · ${item.matches} совп.`;
-  const dice=document.createElement("div");dice.className="history-dice";
+  const dice=document.createElement("div");
+  dice.className="history-dice";
   item.result.forEach(color=>{
    const dot=document.createElement("span");
-   dot.className="mini-die";dot.style.background=color.hex;dice.appendChild(dot);
+   dot.className="mini-die";
+   dot.style.background=color.hex;
+   dice.appendChild(dot);
   });
   const outcome=document.createElement("span");
   outcome.className="history-outcome "+(item.won?"win":"loss");
-  outcome.textContent=item.won?"ПОБЕДА":"ПРОИГРЫШ";
-  row.append(left,dice,outcome);box.appendChild(row);
+  outcome.textContent=item.won?"ПОБЕДА":"ПОРАЖЕНИЕ";
+  row.append(left,dice,outcome);
+  box.appendChild(row);
  });
 }
 
 function setResultText(result,target,matches,won,count){
- return `COLOR DICE #${total}\nКубики: ${result.map(c=>c.name).join(", ")}\nПрогноз: ${target}\nСовпадений: ${matches}/${count}\nШанс исхода: 50/50\nРезультат: ${won?"ПОБЕДА":"ПРОИГРЫШ"}`;
+ const names=result.map(c=>c.name).join(", ");
+ return `COLOR DICE #${total}\nКубики: ${names}\nПрогноз: ${target}\nСовпадений: ${matches}/${count}\nРезультат: ${won?"ПОБЕДА":"ПОРАЖЕНИЕ"}`;
 }
 
 async function roll(){
@@ -646,7 +772,9 @@ async function roll(){
  busy=true;
  $("rollBtn").disabled=true;
  $("rollBtn").textContent="🎲 БРОСАЕМ КУБИКИ...";
- $("result").className="result";
+ 
+ const resultBlock = $("result");
+ resultBlock.className = "result"; // сбрасываем классы перед броском
 
  const available=getAvailable();
  const selectedTarget=targetColor;
@@ -654,11 +782,9 @@ async function roll(){
 
  const result=Array.from({length:count},()=>randomItem(available));
  const matches=result.filter(c=>c.name===selectedTarget).length;
-
- // Independent fair 50/50 outcome. Dice matches do not affect it.
- const won=fairCoinFlip();
-
+ const won=WIN_COUNTS.has(matches);
  const dice=[...$("diceStage").children];
+
  dice.forEach(die=>{
   die.className="dice unknown flicker";
   die.querySelector(".dice-face").textContent="?";
@@ -683,24 +809,44 @@ async function roll(){
  });
 
  await new Promise(resolve=>setTimeout(resolve,850));
+
  dice.forEach(die=>die.className="dice impact");
  playLand();
 
  total++;
- if(won){wins++;streak++;bestStreak=Math.max(bestStreak,streak)}
- else{losses++;streak=0}
+ if(won){
+  wins++;
+  streak++;
+  bestStreak=Math.max(bestStreak,streak);
+ }else{
+  losses++;
+  streak=0;
+ }
 
  updateStats();
- $("result").className="result show "+(won?"win":"loss");
- $("resultTitle").textContent=won?"✦ ПОБЕДА!":"ПОРАЖЕНИЕ";
- $("resultDetail").textContent=`Совпадений цветов: ${matches} из ${count}. Прогноз: ${selectedTarget}. Шанс победы: 50%. Текущая серия: ${streak}. Лучший винстрик: ${bestStreak}.`;
+
+ resultBlock.className = "result show " + (won ? "win" : "loss");
+ $("resultTitle").textContent = won ? "✦ ПОБЕДА!" : "ПОРАЖЕНИЕ";
+ $("resultDetail").textContent =
+  `Совпадений: ${matches} из ${count}. Прогноз: ${selectedTarget}. `+
+  `Текущая серия: ${streak}. Лучший винстрик: ${bestStreak}.`;
+
  lastResultText=setResultText(result,selectedTarget,matches,won,count);
 
- history.unshift({number:total,target:selectedTarget,matches,won,result});
+ history.unshift({
+  number:total,
+  target:selectedTarget,
+  matches,
+  won,
+  result
+ });
  history=history.slice(0,10);
- renderHistory();save();
 
- if(won)playWin();else playLoss();
+ renderHistory();
+ save();
+
+ if(won)playWin();
+ else playLoss();
 
  $("rollBtn").disabled=false;
  $("rollBtn").textContent="🎲 БРОСИТЬ ЕЩЁ РАЗ";
@@ -720,52 +866,97 @@ function applyTheme(name,saveData=true){
 }
 
 async function copyResult(){
- if(!lastResultText){toast("Сначала сделай бросок");return}
- try{await navigator.clipboard.writeText(lastResultText);toast("Результат скопирован!")}
- catch(e){toast("Не удалось скопировать")}
+ if(!lastResultText){
+  toast("Сначала сделай бросок");
+  return;
+ }
+ try{
+  await navigator.clipboard.writeText(lastResultText);
+  toast("Результат скопирован!");
+ }catch(e){
+  toast("Не удалось скопировать");
+ }
 }
 
 function clearHistory(){
  if(busy)return;
  if(!confirm("Очистить историю бросков?"))return;
- history=[];renderHistory();save();toast("История очищена");playClick();
+ history=[];
+ renderHistory();
+ save();
+ toast("История очищена");
+ playClick();
 }
 
 function resetStats(){
  if(busy)return;
  if(!confirm("Сбросить всю статистику и историю?"))return;
- wins=0;losses=0;total=0;streak=0;bestStreak=0;history=[];lastResultText="";
+ wins=0;
+ losses=0;
+ total=0;
+ streak=0;
+ bestStreak=0;
+ history=[];
+ lastResultText="";
  $("result").className="result";
- updateStats();renderHistory();save();toast("Статистика сброшена");playClick();
+ updateStats();
+ renderHistory();
+ save();
+ toast("Статистика сброшена");
+ playClick();
 }
 
 $("targetSelect").addEventListener("change",event=>{
- targetColor=event.target.value;playSelect();
+ targetColor=event.target.value;
+ updateProbability();
+ playSelect();
 });
 
-$("rollBtn").addEventListener("click",()=>{audioContext();roll()});
+$("rollBtn").addEventListener("click",()=>{
+ audioContext();
+ roll();
+});
+
+$("loginBtn").onclick = () => {
+ audioContext();
+ playClick();
+ toast("Окно авторизации в разработке!");
+};
+
+$("registerBtn").onclick = () => {
+ audioContext();
+ playSelect();
+ toast("Регистрация новых игроков скоро откроется!");
+};
 
 $("allColors").onclick=()=>{
  if(busy)return;
  enabled=new Set(COLORS.map(c=>c.name));
- renderColors();renderTarget();playSelect();toast("Все цвета включены");
+ renderColors();
+ renderTarget();
+ updateProbability();
+ playSelect();
+ toast("Все цвета включены");
 };
 
 $("randomColors").onclick=()=>{
  if(busy)return;
- const shuffled=[...COLORS];
- for(let i=shuffled.length-1;i>0;i--){
-  const j=secureRandomIndex(i+1);
-  [shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]];
- }
+ const shuffled=[...COLORS].sort(()=>secureRandomIndex(2)?1:-1);
  enabled=new Set(shuffled.slice(0,4).map(c=>c.name));
  if(!enabled.has(targetColor))targetColor=getAvailable()[0].name;
- renderColors();renderTarget();playSelect();toast("Выбраны 4 случайных цвета");
+ renderColors();
+ renderTarget();
+ updateProbability();
+ playSelect();
+ toast("Выбраны 4 случайных цвета");
 };
 
 $("randomTarget").onclick=()=>{
  targetColor=randomItem(getAvailable()).name;
- renderTarget();playSelect();toast("Прогноз выбран случайно");
+ renderTarget();
+ updateProbability();
+ playSelect();
+ toast("Прогноз выбран случайно");
 };
 
 $("copyResult").onclick=copyResult;
@@ -773,11 +964,20 @@ $("clearHistory").onclick=clearHistory;
 $("resetStats").onclick=resetStats;
 
 $("settingsButton").onclick=()=>{
- $("settingsPanel").scrollIntoView({behavior:"smooth",block:"center"});playClick();
+ $("settingsPanel").scrollIntoView({behavior:"smooth",block:"center"});
+ playClick();
 };
 
-$("musicButton").onclick=()=>{audioContext();setMusic(!musicEnabled);playClick()};
-$("musicToggle").onclick=()=>{audioContext();setMusic(!musicEnabled)};
+$("musicButton").onclick=()=>{
+ audioContext();
+ setMusic(!musicEnabled);
+ playClick();
+};
+
+$("musicToggle").onclick=()=>{
+ audioContext();
+ setMusic(!musicEnabled);
+};
 
 $("sfxToggle").onclick=()=>{
  sfxEnabled=!sfxEnabled;
@@ -788,7 +988,10 @@ $("sfxToggle").onclick=()=>{
 $("musicVolume").oninput=event=>{
  musicVolume=Number(event.target.value)/100;
  $("musicVolumeText").textContent=event.target.value+"%";
- if(musicEnabled){stopMusic();startMusic()}
+ if(musicEnabled){
+  stopMusic();
+  startMusic();
+ }
 };
 
 $("sfxVolume").oninput=event=>{
@@ -798,34 +1001,31 @@ $("sfxVolume").oninput=event=>{
 
 document.querySelectorAll(".theme-dot").forEach(button=>{
  button.onclick=()=>{
-  applyTheme(button.dataset.theme);playSelect();toast("Тема изменена");
+  applyTheme(button.dataset.theme);
+  playSelect();
+  toast("Тема изменена");
  };
 });
 
-$("minStars").addEventListener("input",()=>validateStars());
-$("maxStars").addEventListener("input",()=>validateStars());
-$("minStars").addEventListener("change",()=>validateStars(true));
-$("maxStars").addEventListener("change",()=>validateStars(true));
-
 document.addEventListener("keydown",event=>{
- if(event.code==="Space"&&!["INPUT","SELECT","TEXTAREA","BUTTON"].includes(document.activeElement.tagName)){
+ if(event.code==="Space"&&
+    !["INPUT","SELECT","TEXTAREA","BUTTON"].includes(document.activeElement.tagName)){
   event.preventDefault();
-  if(!busy){audioContext();roll()}
+  if(!busy){
+   audioContext();
+   roll();
+  }
  }
 });
-
-document.addEventListener("pointerdown",()=>{
- if(musicEnabled)startMusic();
-},{once:true});
 
 load();
 renderColors();
 renderTarget();
 renderAmounts();
 renderDice();
+updateProbability();
 updateStats();
 renderHistory();
-validateStars();
 
 $("musicVolume").value=22;
 $("sfxVolume").value=55;
