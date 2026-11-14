@@ -81,7 +81,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:15px;ma
 .panel{
  background:linear-gradient(145deg,#151d2eee,#0e1421f5);
  border:1px solid var(--line);border-radius:18px;padding:19px;
- box-shadow:0 12px 38px #0003;min-width:0
+ box-shadow:0 12px 38px #0003;min-width:0;backdrop-filter:blur(10px)
 }
 .section-title{
  display:flex;align-items:center;justify-content:space-between;gap:8px;
@@ -101,7 +101,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:15px;ma
 .hint{font-size:10px;line-height:1.8;color:var(--muted);margin:12px 0 0}
 .divider{height:1px;background:var(--line);margin:18px 0}
 .field-label{font-size:9px;font-weight:900;color:#aab8d0;letter-spacing:1px;margin-bottom:9px}
-select{
+select,input[type=text],input[type=password]{
  width:100%;padding:12px;border:1px solid #35425d;
  border-radius:10px;background:#192337;color:white;font-size:11px;font-weight:700
 }
@@ -117,7 +117,7 @@ select{
  border:1px solid #37435b;background:#1a2437;color:#d1daeb;
  border-radius:9px;padding:10px 7px;font-size:9px;font-weight:900;transition:.2s
 }
-.secondary-button:hover{border-color:var(--accent);background:#252e45}
+.secondary-button:hover{border-color:var(--accent);background:#252e45;transform:translateY(-1px)}
 .main-panel{padding:21px}
 .game-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .game-head h2{font-size:15px;font-weight:900;margin:0}
@@ -140,8 +140,9 @@ select{
  width:78px;height:78px;border-radius:18px;display:grid;place-items:center;
  background:linear-gradient(145deg,#35415d,#161e30);
  border:1px solid #53617c;box-shadow:0 10px 25px #0007,inset 0 2px 6px #ffffff1a;
- position:relative;z-index:1
+ position:relative;z-index:1;transition:transform .3s cubic-bezier(.175,.885,.32,1.275)
 }
+.dice:hover{transform:translateY(-4px) scale(1.03)}
 .dice-face{font-size:36px;color:white;text-shadow:0 2px 8px #0008}
 .dice.unknown{background:linear-gradient(145deg,#3a2b68,#191d36);border-color:#9476e8}
 .dice.unknown .dice-face{color:#c5aaff}
@@ -165,14 +166,15 @@ select{
  font-size:12px;font-weight:900;letter-spacing:2px;
  box-shadow:0 9px 27px #6849dc55;transition:.2s
 }
-.roll-btn:hover{transform:translateY(-2px);filter:brightness(1.12)}
+.roll-btn:hover{transform:translateY(-2px);filter:brightness(1.12);box-shadow:0 12px 32px #6849dc88}
 .roll-btn:active{transform:scale(.99)}
 .roll-btn:disabled{opacity:.55;cursor:wait;transform:none}
 .result{
  display:none;margin-top:15px;padding:17px;border-radius:13px;
- text-align:center;background:#151e2f;border:1px solid var(--line)
+ text-align:center;background:#151e2f;border:1px solid var(--line);
+ animation:fadeIn .3s ease-out
 }
-.result.show{display:block;animation:appear .35s ease}
+.result.show{display:block}
 .result.win{background:#112e25;border-color:#277b58}
 .result.loss{background:#301824;border-color:#74394b}
 .result-title{font-size:23px;font-weight:900;letter-spacing:1px}
@@ -180,9 +182,10 @@ select{
 .result.loss .result-title{color:var(--red)}
 .result-detail{font-size:10px;color:#bdc9db;line-height:1.8;margin-top:7px}
 .result-actions{display:flex;justify-content:center;gap:8px;margin-top:12px}
-@keyframes appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:14px}
-.stat{background:#151e2e;border:1px solid #293750;border-radius:11px;padding:12px}
+.stat{background:#151e2e;border:1px solid #293750;border-radius:11px;padding:12px;transition:.2s}
+.stat:hover{border-color:var(--accent)}
 .stat small{font-size:8px;color:var(--muted);font-weight:900;letter-spacing:.7px}
 .stat strong{display:block;font-size:21px;margin-top:7px}
 .green{color:var(--green)}.red{color:var(--red)}
@@ -203,7 +206,7 @@ select{
 .history-row{
  display:flex;align-items:center;justify-content:space-between;gap:9px;
  background:#182337;border:1px solid #2a3850;border-radius:10px;
- padding:10px;font-size:9px;color:#c7d1e3
+ padding:10px;font-size:9px;color:#c7d1e3;animation:fadeIn .25s ease
 }
 .history-left{min-width:0}
 .history-dice{display:flex;gap:4px;flex-shrink:0}
@@ -230,14 +233,33 @@ select{
 .theme-select{display:flex;gap:8px;margin-top:12px}
 .theme-dot{width:27px;height:27px;border:2px solid #ffffff22;border-radius:9px;transition:.2s}
 .theme-dot.active{outline:2px solid white;outline-offset:2px}
+
+/* Модальные окна */
+.modal-backdrop{
+ position:fixed;inset:0;background:rgba(5, 7, 14, 0.75);backdrop-filter:blur(8px);
+ display:grid;place-items:center;z-index:100;opacity:0;pointer-events:none;transition:.25s
+}
+.modal-backdrop.open{opacity:1;pointer-events:auto}
+.modal{
+ width:100%;max-width:380px;background:#131a2b;border:1px solid var(--line);
+ border-radius:18px;padding:24px;box-shadow:0 20px 50px rgba(0,0,0,0.6);
+ transform:translateY(15px);transition:.25s
+}
+.modal-backdrop.open .modal{transform:translateY(0)}
+.modal h3{margin:0 0 15px;font-size:16px;font-weight:900}
+.modal .field-label{margin-top:12px}
+.modal-actions{display:flex;gap:8px;margin-top:20px}
+.modal-actions button{flex:1;padding:12px;border-radius:10px;font-weight:900;font-size:10px}
+
 .footer{text-align:center;color:#62708a;font-size:9px;line-height:2;margin-top:23px}
 .toast{
  position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);
  opacity:0;pointer-events:none;background:#202b40;border:1px solid #52617c;
  border-radius:12px;padding:12px 17px;color:white;font-size:11px;font-weight:800;
- transition:.25s;z-index:10
+ transition:.25s;z-index:200;box-shadow:0 10px 30px #0008
 }
 .toast.show{opacity:1;transform:translate(-50%,0)}
+
 @media(max-width:900px){.layout{grid-template-columns:1fr}}
 @media(max-width:600px){
  .app{padding:15px 11px 30px}
@@ -272,13 +294,19 @@ select{
   <div class="logo-icon">🎲</div>
   <div>
    <h1>COLOR DICE</h1>
-   <small>ULTRA EDITION · V3.0</small>
+   <small>ULTRA EDITION · V3.1</small>
   </div>
  </div>
  <div class="header-actions">
   <div class="status"><span class="dot"></span> FAIR RANDOM</div>
-  <button class="secondary-button" id="loginBtn" style="padding:10px 14px;">ВОЙТИ</button>
-  <button class="roll-btn" id="registerBtn" style="padding:10px 14px; margin:0; width:auto; font-size:9px; letter-spacing:1px;">РЕГИСТРАЦИЯ</button>
+  <div id="authActions" style="display:flex;gap:9px;align-items:center;">
+   <button class="secondary-button" id="loginBtn" style="padding:10px 14px;">ВОЙТИ</button>
+   <button class="roll-btn" id="registerBtn" style="padding:10px 14px; margin:0; width:auto; font-size:9px; letter-spacing:1px;">РЕГИСТРАЦИЯ</button>
+  </div>
+  <div id="userBadge" style="display:none;align-items:center;gap:10px;background:#192337;padding:6px 12px;border-radius:12px;border:1px solid #303d55;">
+   <span id="userNameDisplay" style="font-size:10px;font-weight:900;color:var(--green)"></span>
+   <button class="secondary-button" id="logoutBtn" style="padding:6px 9px;font-size:8px;">ВЫЙТИ</button>
+  </div>
   <button class="icon-button" id="musicButton" title="Музыка">♫</button>
   <button class="icon-button" id="settingsButton" title="Настройки">⚙</button>
  </div>
@@ -288,9 +316,9 @@ select{
  <div>
   <div class="hero-label">WELCOME TO THE ULTIMATE GAME</div>
   <h2>Испытай свою удачу.</h2>
-  <p>Новая атмосфера. Новые звуки. Те же честные и равные шансы.</p>
+  <p>Новая атмосфера. Плавные анимации. Честные и равные шансы.</p>
  </div>
- <div class="hero-badge">✦ COLOR DICE V3</div>
+ <div class="hero-badge">✦ COLOR DICE V3.1</div>
 </section>
 
 <div class="layout">
@@ -406,10 +434,25 @@ select{
 </section>
 
 <div class="footer">
- COLOR DICE · ULTRA EDITION V3.0<br>
+ COLOR DICE · ULTRA EDITION V3.1<br>
  FAIR RANDOM GENERATOR · EVERY ROLL IS INDEPENDENT<br>
- Музыка создаётся процедурно и не использует сторонние треки.
+ Процедурный синтезатор звука и плавная анимация.
 </div>
+</div>
+
+<!-- Модальное окно Авторизации -->
+<div class="modal-backdrop" id="authModal">
+ <div class="modal">
+  <h3 id="authTitle">ВХОД В АККАУНТ</h3>
+  <div class="field-label">ИМЯ ПОЛЬЗОВАТЕЛЯ</div>
+  <input type="text" id="authUsername" placeholder="Введите имя...">
+  <div class="field-label">ПАРОЛЬ</div>
+  <input type="password" id="authPassword" placeholder="Введите пароль...">
+  <div class="modal-actions">
+   <button class="secondary-button" id="authCancel">ОТМЕНА</button>
+   <button class="roll-btn" id="authSubmit" style="margin:0;padding:12px;">ПОДТВЕРДИТЬ</button>
+  </div>
+ </div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -443,6 +486,8 @@ let musicEnabled=true,sfxEnabled=true;
 let musicVolume=.22,sfxVolume=.55;
 let audio=null,musicTimer=null;
 let lastToastTimer;
+let currentUser=null;
+let authMode="login"; // 'login' или 'register'
 
 const THEMES={
  purple:["#9467ff","#478cff"],
@@ -484,7 +529,8 @@ function save(){
  try{
   localStorage.setItem("colorDiceUltraV3",JSON.stringify({
    wins,losses,total,streak,bestStreak,history,
-   theme:document.body.dataset.theme||"purple"
+   theme:document.body.dataset.theme||"purple",
+   currentUser
   }));
  }catch(e){}
 }
@@ -499,8 +545,22 @@ function load(){
   streak=Number(data.streak)||0;
   bestStreak=Number(data.bestStreak)||0;
   history=Array.isArray(data.history)?data.history.slice(0,10):[];
+  if(data.currentUser)setLoggedUser(data.currentUser);
   if(THEMES[data.theme])applyTheme(data.theme,false);
  }catch(e){}
+}
+
+function setLoggedUser(name){
+ currentUser=name;
+ if(name){
+  $("authActions").style.display="none";
+  $("userBadge").style.display="flex";
+  $("userNameDisplay").textContent="👤 "+name;
+ }else{
+  $("authActions").style.display="flex";
+  $("userBadge").style.display="none";
+ }
+ save();
 }
 
 function updateStats(){
@@ -774,7 +834,7 @@ async function roll(){
  $("rollBtn").textContent="🎲 БРОСАЕМ КУБИКИ...";
  
  const resultBlock = $("result");
- resultBlock.className = "result"; // сбрасываем классы перед броском
+ resultBlock.className = "result";
 
  const available=getAvailable();
  const selectedTarget=targetColor;
@@ -906,6 +966,42 @@ function resetStats(){
  playClick();
 }
 
+// Управление модальным окном авторизации
+function openAuth(mode){
+ authMode=mode;
+ $("authTitle").textContent = mode==="login" ? "ВХОД В АККАУНТ" : "РЕГИСТРАЦИЯ АККАУНТА";
+ $("authUsername").value="";
+ $("authPassword").value="";
+ $("authModal").classList.add("open");
+ playClick();
+}
+
+function closeAuth(){
+ $("authModal").classList.remove("open");
+ playClick();
+}
+
+$("authCancel").onclick = closeAuth;
+$("authSubmit").onclick = () => {
+ const user=$("authUsername").value.trim();
+ const pass=$("authPassword").value.trim();
+ if(!user || !pass){
+  toast("Заполните все поля!");
+  return;
+ }
+ setLoggedUser(user);
+ closeAuth();
+ toast(authMode==="login" ? `Добро пожаловать, ${user}!` : `Аккаунт создан! Добро пожаловать, ${user}!`);
+};
+
+$("logoutBtn").onclick = () => {
+ setLoggedUser(null);
+ toast("Вы вышли из аккаунта");
+};
+
+$("loginBtn").onclick = () => openAuth("login");
+$("registerBtn").onclick = () => openAuth("register");
+
 $("targetSelect").addEventListener("change",event=>{
  targetColor=event.target.value;
  updateProbability();
@@ -916,18 +1012,6 @@ $("rollBtn").addEventListener("click",()=>{
  audioContext();
  roll();
 });
-
-$("loginBtn").onclick = () => {
- audioContext();
- playClick();
- toast("Окно авторизации в разработке!");
-};
-
-$("registerBtn").onclick = () => {
- audioContext();
- playSelect();
- toast("Регистрация новых игроков скоро откроется!");
-};
 
 $("allColors").onclick=()=>{
  if(busy)return;
